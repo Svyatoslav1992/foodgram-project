@@ -28,7 +28,7 @@ class Tag(models.Model):
         verbose_name_plural = 'Теги'
 
     def __str__(self) -> str:
-        return f'{self.name[:MAX_LENGTH]}'
+        return self.name[:MAX_LENGTH]
 
 
 class Ingredient(models.Model):
@@ -46,7 +46,7 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ингредиенты'
 
     def __str__(self) -> str:
-        return f'{self.name[:MAX_LENGTH]}'
+        return self.name[:MAX_LENGTH]
 
 
 class Recipe(models.Model):
@@ -91,7 +91,7 @@ class Recipe(models.Model):
         verbose_name_plural = 'Рецепты'
 
     def __str__(self) -> str:
-        return f'{self.name[:MAX_LENGTH]}'
+        return self.name[:MAX_LENGTH]
 
 
 class IngredientRecipe(models.Model):
