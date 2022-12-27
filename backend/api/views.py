@@ -1,24 +1,24 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
 from django_filters import rest_framework
-# from django_filters.rest_framework import DjangoFilterBackend
+from recipes.models import Favourite, Ingredient, Recipe, ShoppingCart, Tag
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.views import APIView
+from users.permissions import AuthorOrReadOnly
 
 from api.filters import IngredientFilter, RecipeFilter
 from api.pagination import CustomPagination
 from api.serializers import (IngredientSerializer, RecipeReadSerializer,
                              RecipeWriteSerializer, TagSerializer)
 from api.utils import add_to, delete_from, download_cart
-from recipes.models import Favourite, Ingredient, Recipe, ShoppingCart, Tag
-from users.permissions import AuthorOrReadOnly
 
 User = get_user_model()
 
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
-    """Для модели Ingredient. """
+    """Для модели Ingredient."""
+
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     filter_backends = (rest_framework.DjangoFilterBackend, )
@@ -29,6 +29,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
     """Для модели Tag."""
+
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     pagination_class = None
@@ -36,7 +37,8 @@ class TagViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
-    """Для модели Recipe. """
+    """Для модели Recipe."""
+
     queryset = Recipe.objects.all()
     serializer_class = RecipeReadSerializer
     http_method_names = ('get', 'post', 'patch', 'delete')
@@ -46,15 +48,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
     permission_classes = (AuthorOrReadOnly, )
 
     def perform_create(self, serializer):
-        """Передает в поле author данные о пользователе. """
+        """Передает в поле author данные о пользователе."""
         serializer.save(author=self.request.user)
 
     def perform_destroy(self, instance):
-        """Удаляет объект класса рецепт"""
+        """Удаляет объект класса рецепт."""
         instance.delete()
 
     def get_serializer_class(self):
-        """Переопределение выбора сериализатора"""
+        """Переопределение выбора сериализатора."""
         if self.request.method in permissions.SAFE_METHODS:
             return RecipeReadSerializer
         return RecipeWriteSerializer
@@ -65,7 +67,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         permission_classes=[permissions.IsAuthenticated]
     )
     def shopping_cart(self, request, pk):
-        """Метод для добавления/удаления из список покупок"""
+        """Метод для добавления/удаления из список покупок."""
         if request.method == 'POST':
             return add_to(self, ShoppingCart, request.user, pk)
         else:
@@ -77,7 +79,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         permission_classes=[permissions.IsAuthenticated]
     )
     def favorite(self, request, pk):
-        """Метод для добавления/удаления из избранного"""
+        """Метод для добавления/удаления из избранного."""
         if request.method == 'POST':
             return add_to(self, Favourite, request.user, pk)
         else:
@@ -85,7 +87,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 
 class DownloadCart(APIView):
-    """Вью для скачивания списка покупок. """
+    """Вью для скачивания списка покупок."""
+
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):

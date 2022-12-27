@@ -1,8 +1,8 @@
 from django.contrib import admin
+from users.models import Follow, User
 
 from recipes.models import (Favourite, Ingredient, IngredientRecipe, Recipe,
                             ShoppingCart, Tag)
-from users.models import Follow, User
 
 
 @admin.register(Ingredient)
@@ -18,10 +18,15 @@ class TagAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
+class AmountInLine(admin.StackedInline):
+    model = IngredientRecipe
+
+
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('name', 'text', 'image', 'cooking_time', 'author',)
     list_filter = ('author', 'tags',)
+    inlines = [AmountInLine, ]
 
 
 @admin.register(IngredientRecipe)

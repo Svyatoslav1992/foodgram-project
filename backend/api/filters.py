@@ -1,18 +1,18 @@
-import django_filters
-from django_filters import rest_framework
-
+from django_filters import (AllValuesMultipleFilter, CharFilter, NumberFilter,
+                            rest_framework)
 from recipes.models import Ingredient, Recipe
 
 
 class RecipeFilter(rest_framework.FilterSet):
-    """Фильтр для модели Recipe"""
-    is_favorited = django_filters.NumberFilter(
+    """Фильтр для модели Recipe."""
+
+    is_favorited = NumberFilter(
         method='get_is_favorited'
     )
-    tags = django_filters.AllValuesMultipleFilter(
+    tags = AllValuesMultipleFilter(
         field_name='tags__slug',
     )
-    is_in_shopping_cart = django_filters.NumberFilter(
+    is_in_shopping_cart = NumberFilter(
         method='get_is_shopping_cart'
     )
 
@@ -34,8 +34,9 @@ class RecipeFilter(rest_framework.FilterSet):
 
 
 class IngredientFilter(rest_framework.FilterSet):
-    """Фильтр для модели Ingredient"""
-    name = django_filters.CharFilter(
+    """Фильтр для модели Ingredient."""
+
+    name = CharFilter(
         field_name='name',
         lookup_expr='istartswith'
     )

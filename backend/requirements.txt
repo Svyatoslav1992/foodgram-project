@@ -1,6 +1,6 @@
 asgiref==3.5.2
 Django==3.2.16
-django-filter==22.1
+django-filter==11.1
 django-templated-mail==1.1.1
 djangorestframework==3.14.0
 djangorestframework-simplejwt

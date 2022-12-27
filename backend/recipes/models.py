@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
 from django.db import models
-
 from foodgram.settings import MAX_LENGTH
 
 User = get_user_model()
@@ -64,7 +64,13 @@ class Recipe(models.Model):
         default=None
     )
     cooking_time = models.PositiveSmallIntegerField(
-        verbose_name='Время приготовления в минутах'
+        verbose_name='Время приготовления в минутах',
+        validators=(
+            MinValueValidator(
+                1,
+                'Блюдо уже готово!'
+            ),
+        )
     )
     tags = models.ManyToManyField(
         Tag,
@@ -77,7 +83,7 @@ class Recipe(models.Model):
         related_name='recipes_author'
     )
     ingredients = models.ManyToManyField(
-        "IngredientRecipe",
+        "Ingredient",
         verbose_name='Ингредиенты'
     )
     pub_date = models.DateTimeField(
@@ -100,8 +106,14 @@ class IngredientRecipe(models.Model):
         verbose_name='Ингредиенты',
         on_delete=models.CASCADE,
     )
-    amount = models.IntegerField(
+    amount = models.PositiveSmallIntegerField(
         verbose_name='Количество ингредиента',
+        validators=(MinValueValidator(1,),)
+    )
+    recipe = models.ForeignKey(
+        Recipe,
+        verbose_name='Рецепт',
+        on_delete=models.CASCADE,
     )
 
     class Meta:
