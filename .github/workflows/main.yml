@@ -40,14 +40,14 @@ jobs:
       - name: Push backend to Docker Hub
         uses: docker/build-push-action@v2
         with:
-          file: backend/Dockerfile
+          file: backend/dockerfile
           context: backend/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.BACKEND }}:latest
       - name: Push frontend to Docker Hub
         uses: docker/build-push-action@v2
         with:
-          file: frontend/Dockerfile
+          file: frontend/dockerfile
           context: frontend/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.FRONTEND }}:latest
