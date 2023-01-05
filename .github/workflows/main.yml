@@ -81,7 +81,7 @@ jobs:
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-
+            cd infra
             sudo docker-compose up -d
 
   send_message:
