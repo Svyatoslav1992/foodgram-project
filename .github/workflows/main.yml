@@ -64,8 +64,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            pwd
-            ls
+            scp -r src ${{ secrets.USER }}@${{ secrets.HOST }}:/home/${{ secrets.USER }}/
+
             sudo docker-compose stop
             sudo docker-compose rm web
             sudo docker image rm ${{ secrets.DOCKER_USERNAME }}/${{ secrets.BACKEND }}:latest
