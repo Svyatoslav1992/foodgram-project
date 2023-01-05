@@ -9,7 +9,7 @@ services:
       - ./.env
 
   web:
-    image: svyatoslav1992/foodgram_backend:latest
+    image: slavatron1992/foodgram_backend:latest
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/
@@ -19,7 +19,7 @@ services:
       - ./.env
 
   frontend:
-    image: svyatoslav1992/foodgram_frontend:latest
+    image: slavatron1992/foodgram_frontend:latest
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
