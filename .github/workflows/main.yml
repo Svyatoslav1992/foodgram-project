@@ -69,7 +69,7 @@ jobs:
             sudo apt install python3-pip python3-venv git -y
             sudo apt install docker.io
             sudo apt install docker docker-compose
-            
+
             sudo docker-compose stop
             sudo docker-compose rm backend
             sudo docker-compose rm frontend
@@ -100,4 +100,4 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ github.workflow }} успешно выполнен. Сервер настроен и успешно запущен!
+          message: ${{ github.workflow }} успешно выполнен. Сервер настроен и доступен по адресу ${{ secrets.HOST }}
