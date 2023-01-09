@@ -64,7 +64,17 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
+            sudo apt update
+            sudo apt upgrade -y
+            sudo apt install python3-pip python3-venv git -y
+            sudo apt install docker.io
+            sudo apt install docker docker-compose
+            
             sudo docker-compose stop
+            sudo docker-compose rm backend
+            sudo docker-compose rm frontend
+            sudo docker image rm ${{ secrets.DOCKER_USERNAME }}/${{ secrets.BACKEND }}
+            sudo docker image rm ${{ secrets.DOCKER_USERNAME }}/${{ secrets.FRONTEND }}
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.BACKEND }}:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.FRONTEND }}:latest
 
@@ -78,7 +88,9 @@ jobs:
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-            sudo docker-compose up -d
+
+            sudo docker-compose up -d --build
+
   send_message:
     runs-on: ubuntu-latest
     needs: deploy
@@ -88,4 +100,4 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ github.workflow }} успешно выполнен, ты умничка!
+          message: ${{ github.workflow }} успешно выполнен. Сервер настроен и успешно запущен!
