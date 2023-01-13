@@ -1,8 +1,7 @@
 import csv
 from os import path
 
-from django.conf import settings
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from recipes.models import Ingredient
 
@@ -11,9 +10,9 @@ class Command(BaseCommand):
     help = 'Загрузка из csv файла'
 
     def handle(self, *args, **kwargs):
-        data_path = settings.BASE_DIR
+        data_path = path.join('.', 'data', 'ingredients.csv')
         with open(
-            f'{data_path}/data/ingredients.csv',
+            f'{data_path}',
             'r',
             encoding='utf-8'
         ) as file:
