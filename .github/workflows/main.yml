@@ -64,13 +64,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            sudo apt update
-            sudo apt upgrade -y
-            sudo apt install python3-pip python3-venv git -y
-            sudo apt install docker.io
-            sudo apt install docker docker-compose
-            sudo apt install nodejs
-            sudo apt install npm
+
 
             sudo docker-compose stop
             sudo docker-compose rm backend
