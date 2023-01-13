@@ -141,6 +141,8 @@ DJOSER = {
 
 LANGUAGE_CODE = 'ru'
 
+# ENCODING = 'UTF-8'
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
