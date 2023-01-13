@@ -20,9 +20,6 @@ jobs:
         cd backend/
         pip install -r requirements.txt
 
-    # - name: Test with flake8
-    #   run: |
-    #     python -m flake8
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
@@ -64,7 +61,13 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-
+            sudo apt update
+            sudo apt upgrade -y
+            sudo apt install python3-pip python3-venv git -y
+            sudo apt install docker.io
+            sudo apt install docker docker-compose
+            sudo apt install nodejs
+            sudo apt install npm
 
             sudo docker-compose stop
             sudo docker-compose rm backend
@@ -96,4 +99,4 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ github.workflow }} успешно выполнен. Сервер настроен и доступен по адресу ${{ secrets.HOST }}
+          message: ${{ github.workflow }} успешно выполнен. Сервер доступен по адресу ${{ secrets.HOST }}/admin
