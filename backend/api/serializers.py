@@ -134,14 +134,14 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             'cooking_time'
         )
 
-    # def create_ingredients(self, ingredients, recipe):
-    #     IngredientRecipe.objects.bulk_create([
-    #         IngredientRecipe(
-    #             recipe=recipe,
-    #             amount=ingredient.get('amount'),
-    #             ingredient_id=ingredient.get('id')
-    #         ) for ingredient in ingredients
-    #     ])
+    def create_ingredients(self, ingredients, recipe):
+        IngredientRecipe.objects.bulk_create([
+            IngredientRecipe(
+                recipe=recipe,
+                amount=ingredient.get('amount'),
+                ingredient_id=ingredient.get('id')
+            ) for ingredient in ingredients
+        ])
     # def create_ingredients(self, ingredients, recipe):
     #     for ingredient in ingredients:
     #         current_ingredient = get_object_or_404(
@@ -152,13 +152,13 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     #             amount=ingredient['amount']
     #         )
     #         recipe.ingredients.add(ing)
-    def create_ingredients(self, ingredients, recipe):
-        ingredients_list = [IngredientRecipe(
-            recipe=recipe,
-            ingredient=ing['id'],
-            amount=ing['amount']
-        ) for ing in ingredients]
-        IngredientRecipe.objects.bulk_create(ingredients_list)
+    # def create_ingredients(self, ingredients, recipe):
+    #     ingredients_list = [IngredientRecipe(
+    #         recipe=recipe,
+    #         ingredient=ing['id'],
+    #         amount=ing['amount']
+    #     ) for ing in ingredients]
+    #     IngredientRecipe.objects.bulk_create(ingredients_list)
 
     def create(self, validated_data):
         ingredients = validated_data.pop('ingredients')
