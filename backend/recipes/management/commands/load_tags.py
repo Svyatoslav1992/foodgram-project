@@ -1,5 +1,3 @@
-15 lines (11 sloc)  573 Bytes
-
 from django.core.management import BaseCommand
 
 from recipes.models import Tag
