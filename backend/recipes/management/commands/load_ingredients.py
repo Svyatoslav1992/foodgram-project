@@ -7,9 +7,7 @@ from recipes.models import Ingredient
 
 
 class Command(BaseCommand):
-    """
-    Импорт данных по ингредиентам из файла ./data/ingredients.csv.
-    """
+    help = 'Загружаем ингридиенты'
 
     def handle(self, *args, **options):
         filename = path.join('.', 'data', 'ingredients.csv')
@@ -21,6 +19,10 @@ class Command(BaseCommand):
                     Ingredient.objects.get_or_create(
                         name=name,
                         measurement_unit=measure
+                    )
+                    self.stdout.write(self.style.SUCCESS(
+                        'Все ингридиенты загружены!'
+                        )
                     )
         except FileNotFoundError as error:
             raise CommandError(error)
