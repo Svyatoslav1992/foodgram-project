@@ -134,37 +134,28 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             'cooking_time'
         )
 
-    # def create_ingredients(self, ingredients, recipe):
-    #     IngredientRecipe.objects.bulk_create([
-    #         IngredientRecipe(
-    #             recipe=recipe,
-    #             amount=ingredient.get('amount'),
-    #             ingredient_id=ingredient.get('id')
-    #         ) for ingredient in ingredients
-    #     ])
+    def create_ingredients(self, ingredients, recipe):
+        IngredientRecipe.objects.bulk_create([
+            IngredientRecipe(
+                recipe=recipe,
+                amount=ingredient.get('amount'),
+                ingredient_id=ingredient.get('id')
+            ) for ingredient in ingredients
+        ])
+
     # def create_ingredients(self, ingredients, recipe):
     #     for ingredient in ingredients:
-    #         current_ingredient = get_object_or_404(
-    #             Ingredient, id=ingredient.get('id')
+    #         IngredientRecipe.objects.create(
+    #             recipe=recipe,
+    #             ingredient_id=ingredient.get('id'),
+    #             amount=ingredient.get('amount'),
     #         )
-    #         ing, _ = IngredientRecipe.objects.get_or_create(
-    #             ingredient=current_ingredient,
-    #             amount=ingredient['amount']
-    #         )
-    #         recipe.ingredients.add(ing)
-    def create_ingredients(self, ingredients, recipe):
-        for ingredient in ingredients:
-            IngredientRecipe.objects.create(
-                recipe=recipe,
-                ingredient_id=ingredient.get('id'),
-                amount=ingredient.get('amount'),
-            )
 
     def create(self, validated_data):
         ingredients = validated_data.pop('ingredients')
         tags = validated_data.pop('tags')
         recipe = Recipe.objects.create(**validated_data)
-        recipe.save()
+        # recipe.save()
         recipe.tags.set(tags)
         self.create_ingredients(ingredients, recipe)
         return recipe
