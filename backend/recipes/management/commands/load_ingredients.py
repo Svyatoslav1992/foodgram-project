@@ -20,9 +20,9 @@ class Command(BaseCommand):
                         name=name,
                         measurement_unit=measure
                     )
-                    self.stdout.write(self.style.SUCCESS(
-                        'Все ингридиенты загружены!'
-                        )
-                    )
+            self.stdout.write(self.style.SUCCESS(
+                'Все ингридиенты загружены!'
+                )
+            )
         except FileNotFoundError as error:
             raise CommandError(error)
