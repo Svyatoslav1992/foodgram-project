@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
-from django_filters import rest_framework
+from django_filters.rest_framework import DjangoFilterBackend
+# from django_filters import rest_framework
 from recipes.models import Favourite, Ingredient, Recipe, ShoppingCart, Tag
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
@@ -21,7 +22,8 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
-    filter_backends = (rest_framework.DjangoFilterBackend, )
+    filter_backends = (DjangoFilterBackend, )
+    # filter_backends = (rest_framework.DjangoFilterBackend, )
     pagination_class = None
     filterset_class = IngredientFilter
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -42,7 +44,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeReadSerializer
     http_method_names = ('get', 'post', 'patch', 'delete')
-    filter_backends = (rest_framework.DjangoFilterBackend, )
+    filter_backends = (DjangoFilterBackend, )
+    # filter_backends = (rest_framework.DjangoFilterBackend, )
     filterset_class = RecipeFilter
     pagination_class = CustomPagination
     permission_classes = (AuthorOrReadOnly, )
