@@ -155,7 +155,7 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         ingredients = validated_data.pop('ingredients')
         tags = validated_data.pop('tags')
         recipe = Recipe.objects.create(**validated_data)
-        # recipe.save()
+        recipe.save()
         recipe.tags.set(tags)
         self.create_ingredients(ingredients, recipe)
         return recipe
@@ -211,7 +211,7 @@ class RecipeShortInfo(RecipeReadSerializer):
     """"Сериализатор рецептов  для отображения нужных полей"""
     class Meta:
         model = Recipe
-        fields = ('id', 'name', 'image', 'cooking_time')
+        fields = ('id', 'name', 'image', 'ingredients', 'cooking_time')
 
 
 class AddToSerializer(serializers.Serializer):
