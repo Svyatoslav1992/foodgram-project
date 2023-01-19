@@ -81,12 +81,12 @@ class Recipe(models.Model):
         User,
         verbose_name='Автор',
         on_delete=models.CASCADE,
-        related_name='recipes_author'
+        related_name='recipes_author',
     )
     ingredients = models.ManyToManyField(
         "Ingredient",
-        through="IngredientRecipe"
-        verbose_name='Ингредиенты'
+        through='IngredientRecipe',
+        verbose_name='Ингредиенты',
     )
     pub_date = models.DateTimeField(
         verbose_name='Дата публикации',
