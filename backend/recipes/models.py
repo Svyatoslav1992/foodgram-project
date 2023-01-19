@@ -45,6 +45,7 @@ class Ingredient(models.Model):
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
 
+
     def __str__(self) -> str:
         return self.name[:MAX_LENGTH]
 
@@ -84,6 +85,7 @@ class Recipe(models.Model):
     )
     ingredients = models.ManyToManyField(
         "Ingredient",
+        through="IngredientRecipe"
         verbose_name='Ингредиенты'
     )
     pub_date = models.DateTimeField(
