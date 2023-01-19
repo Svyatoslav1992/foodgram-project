@@ -143,16 +143,8 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             ) for ingredient in ingredients
         ])
 
-    # def create_ingredients(self, ingredients, recipe):
-    #     for ingredient in ingredients:
-    #         IngredientRecipe.objects.create(
-    #             recipe=recipe,
-    #             ingredient_id=ingredient.get('id'),
-    #             amount=ingredient.get('amount'),
-    #         )
-
     def create(self, validated_data):
-        ingredients = validated_data.pop('ingredients')
+        ingredients = validated_data.pop('ingredient')
         tags = validated_data.pop('tags')
         recipe = Recipe.objects.create(**validated_data)
         recipe.save()
