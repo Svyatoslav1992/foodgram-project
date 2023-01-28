@@ -69,7 +69,8 @@ class RecipeReadSerializer(serializers.ModelSerializer):
     is_favorited = serializers.SerializerMethodField(read_only=True)
     is_in_shopping_cart = serializers.SerializerMethodField(read_only=True)
     author = UsersSerializer(read_only=True)
-    ingredients = IngredientRecipeSerializer(source='ingredientrecipeserialezer_set', many=True, read_only=True)
+    ingredients = IngredientRecipeSerializer(many=True)
+    # ingredients = IngredientRecipeSerializer(source='ingredientrecipeserialezer_set', many=True, read_only=True)
     image = Base64ImageField(required=True, allow_null=True)
     tags = TagSerializer(many=True)
 
@@ -105,7 +106,8 @@ class RecipeReadSerializer(serializers.ModelSerializer):
 
 
 class IngredientRecipeWriteSerializer(serializers.Serializer):
-    id = serializers.IntegerField(required=True)
+    # id = serializers.IntegerField(required=True)
+    id = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
     amount = serializers.IntegerField(required=True)
 
     def validate_amount(self, value):
