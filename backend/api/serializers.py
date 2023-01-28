@@ -106,8 +106,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
 
 
 class IngredientRecipeWriteSerializer(serializers.Serializer):
-    # id = serializers.IntegerField(required=True)
-    id = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
+    id = serializers.IntegerField(required=True)
     amount = serializers.IntegerField(required=True)
 
     def validate_amount(self, value):
