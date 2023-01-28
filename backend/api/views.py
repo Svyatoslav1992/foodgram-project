@@ -41,7 +41,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     """Для модели Recipe."""
 
     queryset = Recipe.objects.all()
-    # serializer_class = RecipeReadSerializer
+    serializer_class = RecipeReadSerializer
     http_method_names = ('get', 'post', 'patch', 'delete')
     filter_backends = [DjangoFilterBackend]
     # filter_backends = (DjangoFilterBackend, )
