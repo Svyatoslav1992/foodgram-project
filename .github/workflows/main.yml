@@ -87,7 +87,7 @@ jobs:
             echo POSTGRES_PASSWORD=postgres123 >> .env
             echo DB_HOST=db >> .env
             echo DB_PORT=5432 >> .env
-            echo ALLOWED_HOSTS= ['*'] >> .env
+            echo ALLOWED_HOSTS= 84.201.165.229 >> .env
             echo SECRET_KEY='django-insecure-@_8zpdw(j%91%u2yf076(!$i*^xei^h%%%+e2zwm8olp9fr5km' >> .env
 
             sudo docker-compose up -d --build
