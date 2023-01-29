@@ -1,7 +1,6 @@
-from colorfield import fields
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
 from django.db import models
-
 from foodgram.settings import MAX_LENGTH
 
 User = get_user_model()
@@ -13,7 +12,7 @@ class Tag(models.Model):
         max_length=200,
         unique=True
     )
-    color = fields.CharField(
+    color = models.CharField(
         verbose_name='Цвет',
         max_length=7,
         unique=True
@@ -29,7 +28,7 @@ class Tag(models.Model):
         verbose_name_plural = 'Теги'
 
     def __str__(self) -> str:
-        return f'{self.name[:MAX_LENGTH]}'
+        return self.name[:MAX_LENGTH]
 
 
 class Ingredient(models.Model):
@@ -46,8 +45,9 @@ class Ingredient(models.Model):
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
 
+
     def __str__(self) -> str:
-        return f'{self.name[:MAX_LENGTH]}'
+        return f'{self.name}, {self.measurement_unit}'
 
 
 class Recipe(models.Model):
@@ -65,7 +65,13 @@ class Recipe(models.Model):
         default=None
     )
     cooking_time = models.PositiveSmallIntegerField(
-        verbose_name='Время приготовления в минутах'
+        verbose_name='Время приготовления в минутах',
+        validators=(
+            MinValueValidator(
+                1,
+                'Блюдо уже готово!'
+            ),
+        )
     )
     tags = models.ManyToManyField(
         Tag,
@@ -75,11 +81,12 @@ class Recipe(models.Model):
         User,
         verbose_name='Автор',
         on_delete=models.CASCADE,
-        related_name='recipes_author'
+        related_name='recipes_author',
     )
     ingredients = models.ManyToManyField(
-        "IngredientRecipe",
-        verbose_name='Ингредиенты'
+        "Ingredient",
+        # through='IngredientRecipe',
+        verbose_name='Ингредиенты',
     )
     pub_date = models.DateTimeField(
         verbose_name='Дата публикации',
@@ -92,22 +99,39 @@ class Recipe(models.Model):
         verbose_name_plural = 'Рецепты'
 
     def __str__(self) -> str:
-        return f'{self.name[:MAX_LENGTH]}'
+        return self.name[:MAX_LENGTH]
 
 
 class IngredientRecipe(models.Model):
     ingredient = models.ForeignKey(
         Ingredient,
-        verbose_name='Ингредиенты',
+        verbose_name='Ингредиент',
         on_delete=models.CASCADE,
+        default=None,
     )
-    amount = models.IntegerField(
+    amount = models.PositiveSmallIntegerField(
         verbose_name='Количество ингредиента',
+        validators=(
+            MinValueValidator(
+                1,
+                message='Количество не может быть меньше единицы.'
+            ),
+        ),
+    )
+    recipe = models.ForeignKey(
+        Recipe,
+        verbose_name='Рецепт',
+        on_delete=models.CASCADE,
+        default=None,
     )
 
     class Meta:
         verbose_name = 'Ингредиент в рецепте'
         verbose_name_plural = 'Ингредиенты в рецепте'
+        constraints = [
+            models.UniqueConstraint(fields=['ingredient', 'recipe'],
+                                    name='unique ingredients recipe')
+        ]
 
     def __str__(self) -> str:
         return f'{self.ingredient}({self.amount})'
