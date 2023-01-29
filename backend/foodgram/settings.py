@@ -15,8 +15,8 @@ from pathlib import Path
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECRET_KEY = os.getenv('SECRET_KEY')
-SECRET_KEY = 'django-insecure-@_8zpdw(j%91%u2yf076(!$i*^xei^h%%%+e2zwm8olp9fr5km'
+SECRET_KEY = os.getenv('SECRET_KEY')
+#SECRET_KEY = 'django-insecure-@_8zpdw(j%91%u2yf076(!$i*^xei^h%%%+e2zwm8olp9fr5km'
 DEBUG = False
 
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS')
