@@ -69,8 +69,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
     is_favorited = serializers.SerializerMethodField(read_only=True)
     is_in_shopping_cart = serializers.SerializerMethodField(read_only=True)
     author = UsersSerializer(read_only=True)
-    # ingredients = IngredientRecipeSerializer(many=True, read_only=True)
-    # ingredients = IngredientRecipeSerializer(source='ingredientrecipeserialezer_set', many=True, read_only=True)
+    ingredients = IngredientRecipeSerializer(many=True, read_only=True)
     image = Base64ImageField(required=True, allow_null=True)
     tags = TagSerializer(many=True)
 
@@ -115,10 +114,6 @@ class IngredientRecipeWriteSerializer(serializers.Serializer):
                 'Количесто ингредиента не может быть меньше <=0'
             )
         return value
-
-    class Meta:
-        model = IngredientRecipe
-        fields = 'id', 'amount',
 
 
 class RecipeWriteSerializer(serializers.ModelSerializer):

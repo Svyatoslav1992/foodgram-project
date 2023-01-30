@@ -47,7 +47,7 @@ class Ingredient(models.Model):
 
 
     def __str__(self) -> str:
-        return f'{self.name}, {self.measurement_unit}'
+        return self.name[:MAX_LENGTH]
 
 
 class Recipe(models.Model):
@@ -84,7 +84,8 @@ class Recipe(models.Model):
         related_name='recipes_author',
     )
     ingredients = models.ManyToManyField(
-        "IngredientRecipe",
+        "Ingredient",
+        through='IngredientRecipe',
         verbose_name='Ингредиенты',
     )
     pub_date = models.DateTimeField(
@@ -104,18 +105,14 @@ class Recipe(models.Model):
 class IngredientRecipe(models.Model):
     ingredient = models.ForeignKey(
         Ingredient,
+        related_name='recipes',
         verbose_name='Ингредиенты',
         on_delete=models.CASCADE,
         default=None,
     )
     amount = models.PositiveSmallIntegerField(
         verbose_name='Количество ингредиента',
-        validators=(
-            MinValueValidator(
-                1,
-                message='Количество не может быть меньше единицы.'
-            ),
-        ),
+        validators=(MinValueValidator(1,),)
     )
     recipe = models.ForeignKey(
         Recipe,
