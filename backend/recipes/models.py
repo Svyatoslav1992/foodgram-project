@@ -84,8 +84,7 @@ class Recipe(models.Model):
         related_name='recipes_author',
     )
     ingredients = models.ManyToManyField(
-        "Ingredient",
-        # through='IngredientRecipe',
+        "IngredientRecipe",
         verbose_name='Ингредиенты',
     )
     pub_date = models.DateTimeField(
@@ -105,7 +104,7 @@ class Recipe(models.Model):
 class IngredientRecipe(models.Model):
     ingredient = models.ForeignKey(
         Ingredient,
-        verbose_name='Ингредиент',
+        verbose_name='Ингредиенты',
         on_delete=models.CASCADE,
         default=None,
     )
