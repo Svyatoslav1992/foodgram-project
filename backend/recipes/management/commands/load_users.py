@@ -1,14 +1,16 @@
-# from django.core.management import BaseCommand
+from django.core.management import BaseCommand
 
-# from users.models import User
+from users.models import User
 
 
-# class Command(BaseCommand):
-#     help = 'Создаем пользователей'
+class Command(BaseCommand):
+    help = 'Создаем пользователей'
 
-#     def handle(self, *args, **kwargs):
-#         data = [
-#             {'username': 'Ivan', 'first_name': 'Иван', 'last_name': 'Фёдоров', 'email': 'Ivan@gmail.com', 'password': '1q2w3e4r'},
-#         ]
-#         User.objects.bulk_create(User(**user) for user in data)
-#         self.stdout.write(self.style.SUCCESS('Все пользователи созданы!'))
+    def handle(self, *args, **kwargs):
+        data = [
+            {'username': 'Ivan', 'first_name': 'Иван', 'last_name': 'Фёдоров', 'email': 'Ivan@gmail.com', 'password': '1q2w3e4r'},
+            {'username': 'Slava', 'first_name': 'Святосдав', 'last_name': 'Килин', 'email': 'Svyatoslav@gmail.com', 'password': '1q2w3e4r'},
+            {'username': 'Darya', 'first_name': 'Дарья', 'last_name': 'Долгоппупс', 'email': 'Darya@gmail.com', 'password': '1q2w3e4r'},
+        ]
+        User.objects.bulk_create(User(**user) for user in data)
+        self.stdout.write(self.style.SUCCESS('Все пользователи созданы!'))
