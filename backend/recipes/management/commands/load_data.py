@@ -39,7 +39,7 @@ class Command(BaseCommand):
                 first_name=person.first_name(gender='male'),
                 last_name=person.last_name(gender='male'),
                 email= person.email(gender='male'),
-                password=person.password(length=8),
+                password=person.password(length=8)
             )
             )
         # users = [
