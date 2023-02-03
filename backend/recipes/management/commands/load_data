@@ -60,3 +60,13 @@ class Command(BaseCommand):
             Tag(id=3, name='Ужин', color='#8775D2', slug='supper'),
         ]
         Tag.objects.bulk_create(tag)
+
+        # # Загрузка рецептов
+        # recipes = [
+        #     Recipe(
+        #         author= User.objects.get(id=1),
+        #         name= 'Суп',
+        #         text= 'Супчик дня!',
+
+        #     )
+        # ]
