@@ -1,9 +1,10 @@
 import csv
 from os import path
+from random import randint
 
 from django.core.management import BaseCommand, CommandError
 
-from recipes.models import Ingredient, Recipe, Tag
+from recipes.models import Ingredient, Recipe, Tag, IngredientRecipe
 from users.models import User
 
 
@@ -72,4 +73,28 @@ class Command(BaseCommand):
             )
         ]
         Recipe.objects.bulk_create(recipes)
+
+        recipe_ingredients = []
+        for _ in range(1):
+            random_recipe = Recipe.objects.get(id=1)
+            random_ingredient = Ingredient.objects.get(id=randint(1, 2000))
+            random_amount = randint(1,100)
+
+            recipe_ingredients.append(
+                IngredientRecipe(
+                    recipe=random_recipe,
+                    ingredient=random_ingredient,
+                    amount=random_amount
+                )
+            )
+        IngredientRecipe.objects.bulk_create(recipe_ingredients)
+
+
+
+        # recipe_ingredients.append = (
+        #     id=1,
+        #     ingredient=1,
+        #     amount=10
+        # )
+        # IngredientRecipe.objects.bulk_create(recipe_ingredients)
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
