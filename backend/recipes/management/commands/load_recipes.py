@@ -7,7 +7,7 @@ from users.models import User
 
 class Command(BaseCommand):
     help = 'Создаем рецепты'
-    ivan = User.objects.get(name="Ivan")
+    ivan = User.objects.get(username="Ivan")
     def handle(self, *args, **kwargs):
 
         data = [
