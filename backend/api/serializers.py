@@ -64,6 +64,58 @@ class IngredientRecipeSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'measurement_unit', 'amount')
 
 
+class RecipeReadSerializer(serializers.ModelSerializer):
+    "Сериализатор для модели Recipe для чтения и записи данных"
+    is_favorited = serializers.SerializerMethodField(read_only=True)
+    is_in_shopping_cart = serializers.SerializerMethodField(read_only=True)
+    author = UsersSerializer(read_only=True)
+    ingredients = IngredientRecipeSerializer(many=True, read_only=True)
+    image = Base64ImageField(required=True, allow_null=True)
+    tags = TagSerializer(many=True)
+
+    def get_is_favorited(self, obj):
+        request = self.context.get('request')
+        if request.user.is_anonymous:
+            return False
+        favorite = request.user.user_favourite.filter(recipe=obj)
+        return favorite.exists()
+
+    def get_is_in_shopping_cart(self, obj):
+        request = self.context.get('request')
+        if request.user.is_anonymous:
+            return False
+        shopping_cart = request.user.user_shopping_cart.filter(recipe=obj)
+        return shopping_cart.exists()
+
+    class Meta:
+        model = Recipe
+        fields = (
+            'id',
+            'tags',
+            'author',
+            'ingredients',
+            'is_favorited',
+            'is_in_shopping_cart',
+            'name',
+            'image',
+            'text',
+            'cooking_time'
+        )
+        read_only_fields = ('author',)
+
+
+class IngredientRecipeWriteSerializer(serializers.Serializer):
+    id = serializers.IntegerField(required=True)
+    amount = serializers.IntegerField(required=True)
+
+    def validate_amount(self, value):
+        if value <= 0:
+            raise serializers.ValidationError(
+                'Количесто ингредиента не может быть меньше <=0'
+            )
+        return value
+
+
 class RecipeWriteSerializer(serializers.ModelSerializer):
     tags = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Tag.objects.all()
@@ -145,63 +197,6 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
                 )
             list.append(tag)
         return value
-
-
-
-class RecipeReadSerializer(serializers.ModelSerializer):
-    "Сериализатор для модели Recipe для чтения и записи данных"
-    is_favorited = serializers.SerializerMethodField(read_only=True)
-    is_in_shopping_cart = serializers.SerializerMethodField(read_only=True)
-    author = UsersSerializer(read_only=True)
-    ingredients = RecipeWriteSerializer(many=True, read_only=True)
-    # ingredients = IngredientRecipeSerializer(many=True, read_only=True)
-    image = Base64ImageField(required=True, allow_null=True)
-    tags = TagSerializer(many=True)
-
-    def get_is_favorited(self, obj):
-        request = self.context.get('request')
-        if request.user.is_anonymous:
-            return False
-        favorite = request.user.user_favourite.filter(recipe=obj)
-        return favorite.exists()
-
-    def get_is_in_shopping_cart(self, obj):
-        request = self.context.get('request')
-        if request.user.is_anonymous:
-            return False
-        shopping_cart = request.user.user_shopping_cart.filter(recipe=obj)
-        return shopping_cart.exists()
-
-    class Meta:
-        model = Recipe
-        fields = (
-            'id',
-            'tags',
-            'author',
-            'ingredients',
-            'is_favorited',
-            'is_in_shopping_cart',
-            'name',
-            'image',
-            'text',
-            'cooking_time'
-        )
-        read_only_fields = ('author',)
-
-
-class IngredientRecipeWriteSerializer(serializers.Serializer):
-    id = serializers.IntegerField(required=True)
-    amount = serializers.IntegerField(required=True)
-
-    def validate_amount(self, value):
-        if value <= 0:
-            raise serializers.ValidationError(
-                'Количесто ингредиента не может быть меньше <=0'
-            )
-        return value
-
-
-
 
 
 class RecipeShortInfo(RecipeReadSerializer):

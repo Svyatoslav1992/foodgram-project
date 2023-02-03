@@ -85,7 +85,6 @@ class Recipe(models.Model):
     )
     ingredients = models.ManyToManyField(
         "Ingredient",
-        # through='IngredientRecipe',
         verbose_name='Ингредиенты',
     )
     pub_date = models.DateTimeField(
