@@ -35,12 +35,12 @@ class Command(BaseCommand):
         for _ in range(5):
             users.append(
                 User(
-                username=person.username(mask='l'),
-                first_name=person.first_name(gender='male'),
-                last_name=person.last_name(gender='male'),
-                email= person.email(gender='male'),
-                password=person.password(length=8)
-            )
+                    username=person.username(mask='l'),
+                    first_name=person.first_name(gender='male'),
+                    last_name=person.last_name(gender='male'),
+                    email=person.email(gender='male'),
+                    password=person.password(length=8)
+                )
             )
         # users = [
         #     User(
@@ -76,32 +76,32 @@ class Command(BaseCommand):
         Tag.objects.bulk_create(tag)
 
         # Загрузка рецептов
-        recipes = []
-        for _ in range(10):
-            random_author = User.objects.get(id=randint(1,3))
-            recipes.append(
-                Recipe(
-                    author=random_author,
-                    name=
-                )
-            )
+        # recipes = []
+        # for _ in range(10):
+        #     random_author = User.objects.get(id=randint(1,3))
+        #     recipes.append(
+        #         Recipe(
+        #             author=random_author,
+        #             name=
+        #         )
+        #     )
 
-        Recipe.objects.bulk_create(recipes)
+        # Recipe.objects.bulk_create(recipes)
 
-        recipe_ingredients = []
-        for _ in range(1):
-            random_recipe = Recipe.objects.get(id=1)
-            random_ingredient = Ingredient.objects.get(id=randint(1, 2000))
-            random_amount = randint(1,100)
+        # recipe_ingredients = []
+        # for _ in range(1):
+        #     random_recipe = Recipe.objects.get(id=1)
+        #     random_ingredient = Ingredient.objects.get(id=randint(1, 2000))
+        #     random_amount = randint(1,100)
 
-            recipe_ingredients.append(
-                IngredientRecipe(
-                    recipe=random_recipe,
-                    ingredient=random_ingredient,
-                    amount=random_amount
-                )
-            )
-        IngredientRecipe.objects.bulk_create(recipe_ingredients)
+        #     recipe_ingredients.append(
+        #         IngredientRecipe(
+        #             recipe=random_recipe,
+        #             ingredient=random_ingredient,
+        #             amount=random_amount
+        #         )
+        #     )
+        # IngredientRecipe.objects.bulk_create(recipe_ingredients)
 
 
 
