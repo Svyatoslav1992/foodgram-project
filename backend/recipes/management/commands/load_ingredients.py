@@ -10,7 +10,7 @@ class Command(BaseCommand):
     help = 'Загружаем ингридиенты'
 
     def handle(self, *args, **options):
-        self.stdout.write(self.style.SUCCESS('Начинаем загрузку ингридиентов'))
+        self.stdout.write(self.style.SUCCESS('Начинаем загрузку тестовых данных'))
         filename = path.join('.', 'data', 'ingredients.csv')
         try:
             with open(filename, 'r', encoding='UTF-8') as file:
