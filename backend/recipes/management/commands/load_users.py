@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         data = [
-            {'username': 'Ivan', 'first_name': 'Иван', 'last_name': 'Фёдоров',
+            {'username': 'Ivan', 'first_name': 'Ivan', 'last_name': 'Ivan',
                 'email': 'Ivan@gmail.com', 'password': '1q2w3e4r'},
             {'username': 'Slava', 'first_name': 'Слава', 'last_name': 'Килин',
                 'email': 'Svyatoslav@gmail.com', 'password': '1q2w3e4r'},
