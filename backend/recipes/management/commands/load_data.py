@@ -68,7 +68,7 @@ class Command(BaseCommand):
                 name='Суп',
                 text='Супчик дня!',
                 cooking_time=100,
-                ingredients={"id": 1123, "amount": 10}
+                # ingredients={"id": 1123, "amount": 10}
             )
         ]
         Recipe.objects.bulk_create(recipes)
