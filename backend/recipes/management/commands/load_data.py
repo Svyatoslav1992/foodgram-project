@@ -62,14 +62,14 @@ class Command(BaseCommand):
         Tag.objects.bulk_create(tag)
 
         # Загрузка рецептов
-        recipes = [
-            Recipe(
-                author=User.objects.get(id=1),
-                name='Суп',
-                text='Супчик дня!',
-                cooking_time=100,
-                ingredients=[{"id": 1123, "amount": 10}]
-            )
-        ]
-        Recipe.objects.bulk_create(recipes)
-        self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
+        # recipes = [
+        #     Recipe(
+        #         author=User.objects.get(id=1),
+        #         name='Суп',
+        #         text='Супчик дня!',
+        #         cooking_time=100,
+        #         ingredients=[{"id": 1123, "amount": 10}]
+        #     )
+        # ]
+        # Recipe.objects.bulk_create(recipes)
+        # self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
