@@ -9,7 +9,7 @@ from recipes.models import Ingredient, Recipe, Tag, IngredientRecipe
 # from mimesis.locales import Locale
 from users.models import User
 
-person = Person(locale=Locale.RU)
+# person = Person(locale=Locale.RU)
 
 
 class Command(BaseCommand):
