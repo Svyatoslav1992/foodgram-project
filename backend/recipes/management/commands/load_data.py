@@ -5,7 +5,7 @@ from random import randint
 from django.core.management import BaseCommand, CommandError
 
 from recipes.models import Ingredient, Recipe, Tag, IngredientRecipe
-from mimesis import Text, Person
+from mimesis import Person
 from mimesis.locales import Locale
 from users.models import User
 
@@ -33,40 +33,40 @@ class Command(BaseCommand):
             raise CommandError(error)
 
         # Загрузка пользователей
-        users = []
-        for _ in range(5):
-            users.append(
-                User(
-                    username=person.username(mask='l'),
-                    first_name=person.first_name(gender='male'),
-                    last_name=person.last_name(gender='male'),
-                    email=person.email(gender='male'),
-                    password=person.password(length=8)
-                )
-            )
-        # users = [
-        #     User(
-        #         username='Ivan',
-        #         first_name='Иван',
-        #         last_name='Труха',
-        #         email='Ivan@gmail.com',
-        #         password='1q2w3e4r',
-        #     ),
-        #     User(
-        #         username='Slava',
-        #         first_name='Слава',
-        #         last_name='Киин',
-        #         email='Svyatoslav@gmail.com',
-        #         password='1q2w3e4r',
-        #         ),
-        #     User(
-        #         username='Darya',
-        #         first_name='Дарья',
-        #         last_name='Ан',
-        #         email='Darya@gmail.com',
-        #         password='1q2w3e4r',
+        # users = []
+        # for _ in range(5):
+        #     users.append(
+        #         User(
+        #             username=person.username(mask='l'),
+        #             first_name=person.first_name(gender='male'),
+        #             last_name=person.last_name(gender='male'),
+        #             email=person.email(gender='male'),
+        #             password=person.password(length=8)
+        #         )
         #     )
-        # ]
+        users = [
+            User(
+                username='Ivan',
+                first_name='Иван',
+                last_name='Труха',
+                email='Ivan@gmail.com',
+                password='1q2w3e4r',
+            ),
+            User(
+                username='Slava',
+                first_name='Слава',
+                last_name='Киин',
+                email='Svyatoslav@gmail.com',
+                password='1q2w3e4r',
+                ),
+            User(
+                username='Darya',
+                first_name='Дарья',
+                last_name='Ан',
+                email='Darya@gmail.com',
+                password='1q2w3e4r',
+            )
+        ]
         User.objects.bulk_create(users)
 
         # Загрузка тэгов
