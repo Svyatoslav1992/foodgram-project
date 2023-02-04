@@ -5,8 +5,8 @@ from random import randint
 from django.core.management import BaseCommand, CommandError
 
 from recipes.models import Ingredient, Recipe, Tag, IngredientRecipe
-from mimesis import Person
-from mimesis.locales import Locale
+# from mimesis import Person
+# from mimesis.locales import Locale
 from users.models import User
 
 person = Person(locale=Locale.RU)
