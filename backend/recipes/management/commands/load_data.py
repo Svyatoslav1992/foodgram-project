@@ -97,7 +97,7 @@ class Command(BaseCommand):
         Ivan=User.objects.get(id=1)
         data = [
 
-            {'name': 'Суп', 'text': 'Тот самый суп', 'image': 'https://avatars.mds.yandex.net/i?id=7ab3f5b759042e7890c08012ba6ab4a5-4032833-images-thumbs&n=13', 'cooking_time': '7'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': 'https://avatars.mds.yandex.net/i?id=7ab3f5b759042e7890c08012ba6ab4a5-4032833-images-thumbs&n=13', 'cooking_time': '7', 'author_id': '1'},
 
         ]
 
