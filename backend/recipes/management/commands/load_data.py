@@ -5,16 +5,13 @@ from random import randint
 from django.core.management import BaseCommand, CommandError
 
 from recipes.models import Ingredient, Recipe, Tag, IngredientRecipe
-# from mimesis import Person
-# from mimesis.locales import Locale
-from users.models import User
 
-# person = Person(locale=Locale.RU)
+from users.models import User
 
 
 class Command(BaseCommand):
     """Загружает тестовые данные."""
-
+    # Загрузка ингридиентов
     def handle(self, *args, **kwargs):
         self.stdout.write(self.style.SUCCESS('Начинаем загрузку тестовых данных'))
 
@@ -33,17 +30,6 @@ class Command(BaseCommand):
             raise CommandError(error)
 
         # Загрузка пользователей
-        # users = []
-        # for _ in range(5):
-        #     users.append(
-        #         User(
-        #             username=person.username(mask='l'),
-        #             first_name=person.first_name(gender='male'),
-        #             last_name=person.last_name(gender='male'),
-        #             email=person.email(gender='male'),
-        #             password=person.password(length=8)
-        #         )
-        #     )
         users = [
             User(
                 username='Ivan',
@@ -78,39 +64,15 @@ class Command(BaseCommand):
         Tag.objects.bulk_create(tag)
 
         # Загрузка рецептов
-        # recipes = []
-        # for _ in range(10):
-        #     random_author = User.objects.get(id=randint(1,3))
-        #     recipes.append(
-        #         Recipe(
-        #             author=random_author,
-        #             name=
-        #         )
-        #     )
-
-        # Recipe.objects.bulk_create(recipes)
-
-        # recipe_ingredients = []
-        # for _ in range(1):
-        #     random_recipe = Recipe.objects.get(id=1)
-        #     random_ingredient = Ingredient.objects.get(id=randint(1, 2000))
-        #     random_amount = randint(1,100)
-
-        #     recipe_ingredients.append(
-        #         IngredientRecipe(
-        #             recipe=random_recipe,
-        #             ingredient=random_ingredient,
-        #             amount=random_amount
-        #         )
-        #     )
-        # IngredientRecipe.objects.bulk_create(recipe_ingredients)
-
-
-
-        # recipe_ingredients.append = (
-        #     id=1,
-        #     ingredient=1,
-        #     amount=10
-        # )
-        # IngredientRecipe.objects.bulk_create(recipe_ingredients)
+        recipes = [
+            Recipe(
+            ingredients= [{ "id": 1123, "amount": 10}, { "id": 1122, "amount": 10}],
+            tags= [1,2],
+            image= "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+            name= 'Суп',
+            text= 'Супчик дня!',
+            cooking_time=100 ,
+            )
+        ]
+        Recipe.objects.bulk_create(recipes)
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
