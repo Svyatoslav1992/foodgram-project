@@ -106,7 +106,7 @@ class Command(BaseCommand):
         for recipe in Recipe.objects.all():
             recipe.tags.add(randint(1,3))
 
-        for recipe in Recipe.object.all():
+        for recipe in Recipe.objects.all():
             ingredient=Ingredient.objects.get(id=200)
             print(ingredient)
             recipe.ingrediend.add({'id':ingredient, 'amount':'20'})
