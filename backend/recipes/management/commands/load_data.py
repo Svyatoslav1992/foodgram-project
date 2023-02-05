@@ -64,17 +64,17 @@ class Command(BaseCommand):
         Tag.objects.bulk_create(tag)
 
         # Загрузка рецептов
-        recipes = [
-            Recipe(
+        #recipes = [
+        #    Recipe(
                 # ingredients=[],
                 # tags=[1, 2],
-                image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
-                name='Суп',
-                text='Супчик дня!',
-                cooking_time='100',
-            )
-        ]
-        Recipe.objects.bulk_create(recipes)
+        #        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+        #        name='Суп',
+         #       text='Супчик дня!',
+         #       cooking_time='100',
+         #   )
+        #]
+        #Recipe.objects.bulk_create(recipes)
 
         # tags = []
         # tags.append = (
@@ -85,13 +85,21 @@ class Command(BaseCommand):
         # )
         # Tag.objects.bulk_create(tags)
 
-        recipe_ingredients = []
-        recipe_ingredients.append = (
-            IngredientRecipe(
-                recipe=Recipe.objects.get(id=1),
-                ingredient=Ingredient.objects.get(id=200),
-                amount=100
-            )
-        )
-        IngredientRecipe.objects.bulk_create(recipe_ingredients)
+        #recipe_ingredients = []
+        #recipe_ingredients.append = (
+         #   IngredientRecipe(
+         #       recipe=Recipe.objects.get(id=1),
+       #         ingredient=Ingredient.objects.get(id=200),
+        #        amount=100
+        #    )
+        #)
+       # IngredientRecipe.objects.bulk_create(recipe_ingredients)
+        data = [
+
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': 'https://avatars.mds.yandex.net/i?id=7ab3f5b759042e7890c08012ba6ab4a5-4032833-images-thumbs&n=13', 'cooking_time': '7', 'tags': 'завтрак', 'author': Ivan, 'ingredients': '[{ "id": 1123, "amount": 10}]'},
+
+        ]
+
+        Recipe.objects.bulk_create(Recipe(**recipes) for recipes in data)
+    
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
