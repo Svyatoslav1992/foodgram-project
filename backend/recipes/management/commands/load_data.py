@@ -76,14 +76,14 @@ class Command(BaseCommand):
         ]
         Recipe.objects.bulk_create(recipes)
 
-        tags = []
-        tags.append = (
-            Tag(
-                recipe=Recipe.objects.get(id=1),
-                tag=Tag.objects.get(id=1)
-            )
-        )
-        Tag.objects.bulk_create(tags)
+        # tags = []
+        # tags.append = (
+        #     Tag(
+        #         recipe=Recipe.objects.get(id=1),
+        #         tag=Tag.objects.get(id=1)
+        #     )
+        # )
+        # Tag.objects.bulk_create(tags)
 
         recipe_ingredients = []
         recipe_ingredients.append = (
