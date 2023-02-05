@@ -97,10 +97,13 @@ class Command(BaseCommand):
         Ivan=User.objects.get(id=1)
         data = [
 
-            {'name': 'Суп', 'text': 'Тот самый суп', 'image': 'https://avatars.mds.yandex.net/i?id=7ab3f5b759042e7890c08012ba6ab4a5-4032833-images-thumbs&n=13', 'cooking_time': '7', 'author_id': '1', 'tag_id': '1'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': 'https://avatars.mds.yandex.net/i?id=7ab3f5b759042e7890c08012ba6ab4a5-4032833-images-thumbs&n=13', 'cooking_time': '7', 'author_id': '1'},
 
         ]
 
         Recipe.objects.bulk_create(Recipe(**recipes) for recipes in data)
+
+        For recipe in Recipe.objects.all()
+            recipe.tags.add(1)
     
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
