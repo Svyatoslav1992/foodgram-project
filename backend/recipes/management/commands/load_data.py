@@ -104,6 +104,10 @@ class Command(BaseCommand):
         Recipe.objects.bulk_create(Recipe(**recipes) for recipes in data)
 
         for recipe in Recipe.objects.all():
-            recipe.tags.add(1)
+            recipe.tags.add(randint(1,3))
+
+        for recipe in Recipe.object.all():
+            ingredient=Ingredient.objects.get(id=200)
+            recipe.ingrediend.add({'id':ingredient, 'amount':'20'})
     
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
