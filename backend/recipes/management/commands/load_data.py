@@ -66,12 +66,14 @@ class Command(BaseCommand):
         # Загрузка рецептов
         recipes = [
             Recipe(
-            ingredients= [{ "id": 1123, "amount": 10}, { "id": 1122, "amount": 10}],
-            tags= [1,2],
-            image= "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
-            name= 'Суп',
-            text= 'Супчик дня!',
-            cooking_time=100 ,
+                ingredients=[
+                    {"id": 1123, "amount": 10}, {"id": 1122, "amount": 10}
+                ],
+                tags=[1, 2],
+                image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+                name='Суп',
+                text='Супчик дня!',
+                cooking_time=100,
             )
         ]
         Recipe.objects.bulk_create(recipes)
