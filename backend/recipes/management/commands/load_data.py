@@ -109,6 +109,6 @@ class Command(BaseCommand):
         for recipe in Recipe.objects.all():
             ingredient=Ingredient.objects.get(id=200)
             print(ingredient)
-            recipe.ingrediend.add({'id':ingredient, 'amount':'20'})
+            recipe.ingredient.add({'id':ingredient, 'amount':'20'})
     
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
