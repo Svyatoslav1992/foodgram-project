@@ -67,7 +67,7 @@ class Command(BaseCommand):
         recipes = [
             Recipe(
                 # ingredients=[],
-                tags=[1, 2],
+                # tags=[1, 2],
                 image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
                 name='Суп',
                 text='Супчик дня!',
@@ -75,6 +75,15 @@ class Command(BaseCommand):
             )
         ]
         Recipe.objects.bulk_create(recipes)
+
+        tags = []
+        tags.append = (
+            Tag(
+                recipe=Recipe.objects.get(id=1),
+                tag=Tag.objects.get(id=1)
+            )
+        )
+        Tag.objects.bulk_create(tags)
 
         recipe_ingredients = []
         recipe_ingredients.append = (
