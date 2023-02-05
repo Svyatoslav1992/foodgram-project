@@ -103,7 +103,7 @@ class Command(BaseCommand):
 
         Recipe.objects.bulk_create(Recipe(**recipes) for recipes in data)
 
-        For recipe in Recipe.objects.all()
+        for recipe in Recipe.objects.all()
             recipe.tags.add(1)
     
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
