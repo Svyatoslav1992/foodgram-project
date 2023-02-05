@@ -66,7 +66,7 @@ class Command(BaseCommand):
         # Загрузка рецептов
         recipes = [
             Recipe(
-                ingredients=[],
+                # ingredients=[],
                 tags=[1, 2],
                 image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
                 name='Суп',
@@ -78,9 +78,11 @@ class Command(BaseCommand):
 
         recipe_ingredients = []
         recipe_ingredients.append = (
-            id=1,
-            ingredient=1,
-            amount=10
+            IngredientRecipe(
+                recipe=Recipe.objects.get(id=1),
+                ingredient=Ingredient.objects.get(id=200),
+                amount=100
+            )
         )
         IngredientRecipe.objects.bulk_create(recipe_ingredients)
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
