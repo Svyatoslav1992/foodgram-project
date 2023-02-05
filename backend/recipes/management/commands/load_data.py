@@ -73,7 +73,7 @@ class Command(BaseCommand):
                 image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
                 name='Суп',
                 text='Супчик дня!',
-                cooking_time=100,
+                cooking_time='100',
             )
         ]
         Recipe.objects.bulk_create(recipes)
