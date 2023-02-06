@@ -87,7 +87,7 @@ class Command(BaseCommand):
         recipe_ingredients = []
         for _ in range(30):
             random_recipe = Recipe.objects.get(id=randint(1,3))
-            random_ingredient = Recipe.objects.get(id=randint(1,2188))
+            random_ingredient = Ingredient.objects.get(id=randint(1,2188))
             random_amount = randint(1,120)
 
             recipe_ingredients.append(
