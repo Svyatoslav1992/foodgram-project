@@ -63,41 +63,10 @@ class Command(BaseCommand):
         ]
         Tag.objects.bulk_create(tag)
 
-        # Загрузка рецептов
-        #recipes = [
-        #    Recipe(
-                # ingredients=[],
-                # tags=[1, 2],
-        #        image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
-        #        name='Суп',
-         #       text='Супчик дня!',
-         #       cooking_time='100',
-         #   )
-        #]
-        #Recipe.objects.bulk_create(recipes)
-
-        # tags = []
-        # tags.append = (
-        #     Tag(
-        #         recipe=Recipe.objects.get(id=1),
-        #         tag=Tag.objects.get(id=1)
-        #     )
-        # )
-        # Tag.objects.bulk_create(tags)
-
-        #recipe_ingredients = []
-        #recipe_ingredients.append = (
-         #   IngredientRecipe(
-         #       recipe=Recipe.objects.get(id=1),
-       #         ingredient=Ingredient.objects.get(id=200),
-        #        amount=100
-        #    )
-        #)
-       # IngredientRecipe.objects.bulk_create(recipe_ingredients)
-        Ivan=User.objects.get(id=1)
+                Ivan=User.objects.get(id=1)
         data = [
 
-            {'name': 'Суп', 'text': 'Тот самый суп', 'image': 'https://avatars.mds.yandex.net/i?id=7ab3f5b759042e7890c08012ba6ab4a5-4032833-images-thumbs&n=13', 'cooking_time': '7', 'author_id': '1'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
 
         ]
 
@@ -105,11 +74,6 @@ class Command(BaseCommand):
 
         for recipe in Recipe.objects.all():
             recipe.tags.add(randint(1,3))
-
-        #for recipe in Recipe.objects.all():
-            #ingredient=Ingredient.objects.get(id=200)
-            #print(f'-----{Recipe.objects.all()}-----')
-            #recipe.ingredient.add(id=ingredient, amount='20')
 
         recipe_ingredients = []
         recipe_ingredients.append(
@@ -120,6 +84,7 @@ class Command(BaseCommand):
             )
         )
         IngredientRecipe.objects.bulk_create(recipe_ingredients)
-        print(IngredientRecipe.objects.get(id=1))
+
+        print(Recipe.objects.get(id=1))
 
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
