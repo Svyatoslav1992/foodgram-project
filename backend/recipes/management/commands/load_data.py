@@ -85,7 +85,7 @@ class Command(BaseCommand):
             recipe.tags.add(randint(1,3))
 
         recipe_ingredients = []
-        recipe_ingredients.append(
+        recipe_ingredients.extend(
             IngredientRecipe(
                 recipe=Recipe.objects.get(id=1),
                 ingredient=Ingredient.objects.get(id=101),
