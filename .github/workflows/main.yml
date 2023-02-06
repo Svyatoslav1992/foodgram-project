@@ -73,8 +73,8 @@ jobs:
 
             sudo docker-compose down
 
-            #sudo docker system prune
-            #sudo docker volume prune
+            sudo docker system prune
+            sudo docker volume prune
 
             sudo docker-compose rm backend
             sudo docker-compose rm frontend
