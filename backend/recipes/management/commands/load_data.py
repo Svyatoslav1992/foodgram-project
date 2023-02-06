@@ -63,7 +63,7 @@ class Command(BaseCommand):
         ]
         Tag.objects.bulk_create(tag)
 
-                Ivan=User.objects.get(id=1)
+       
         data = [
 
             {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
