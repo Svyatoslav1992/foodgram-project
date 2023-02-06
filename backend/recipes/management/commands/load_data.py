@@ -109,6 +109,7 @@ class Command(BaseCommand):
         for recipe in Recipe.objects.all():
             ingredient=Ingredient.objects.get(id=200)
             print(f'-----{Recipe.objects.all()}-----')
+            print(f'-----{Ingredient.objects.all()}-----')
             #recipe.ingredient.add(id=ingredient, amount='20')
     
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
