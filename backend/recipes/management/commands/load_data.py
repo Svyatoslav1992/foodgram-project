@@ -67,6 +67,15 @@ class Command(BaseCommand):
         data = [
 
             {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '2'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '2'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '2'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
+            {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
 
         ]
 
@@ -79,9 +88,28 @@ class Command(BaseCommand):
         recipe_ingredients.append(
             IngredientRecipe(
                 recipe=Recipe.objects.get(id=1),
-                ingredient=Ingredient.objects.get(id=200),
+                ingredient=Ingredient.objects.get(id=101),
                 amount=100
-            )
+            ),
+            IngredientRecipe(
+                recipe=Recipe.objects.get(id=1),
+                ingredient=Ingredient.objects.get(id=102),
+                amount=100
+            ),
+            IngredientRecipe(
+                recipe=Recipe.objects.get(id=2),
+                ingredient=Ingredient.objects.get(id=103),
+                amount=100
+            ),
+            IngredientRecipe(
+                recipe=Recipe.objects.get(id=3),
+                ingredient=Ingredient.objects.get(id=104),
+                amount=100
+            ),
+
+
+
+
         )
         IngredientRecipe.objects.bulk_create(recipe_ingredients)
 
