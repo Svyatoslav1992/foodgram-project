@@ -120,6 +120,6 @@ class Command(BaseCommand):
             )
         )
         IngredientRecipe.objects.bulk_create(recipe_ingredients)
-        Print(IngredientRecipe.objects.all())
+        print(IngredientRecipe.objects.all())
 
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
