@@ -106,10 +106,20 @@ class Command(BaseCommand):
         for recipe in Recipe.objects.all():
             recipe.tags.add(randint(1,3))
 
-        for recipe in Recipe.objects.all():
-            ingredient=Ingredient.objects.get(id=200)
-            print(f'-----{Recipe.objects.all()}-----')
-            print(f'-----{Ingredient.objects.all()}-----')
+        #for recipe in Recipe.objects.all():
+            #ingredient=Ingredient.objects.get(id=200)
+            #print(f'-----{Recipe.objects.all()}-----')
             #recipe.ingredient.add(id=ingredient, amount='20')
-    
+
+        recipe_ingredients = []
+        recipe_ingredients.append(
+            IngredientRecipe(
+                recipe=Recipe.objects.get(id=1),
+                ingredient=Ingredient.objects.get(id=200),
+                amount=100
+            )
+        )
+        IngredientRecipe.objects.bulk_create(recipe_ingredients)
+
+
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
