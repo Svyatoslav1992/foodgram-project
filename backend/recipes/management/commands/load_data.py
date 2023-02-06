@@ -85,32 +85,20 @@ class Command(BaseCommand):
             recipe.tags.add(randint(1,3))
 
         recipe_ingredients = []
-        recipe_ingredients.extend(
-            IngredientRecipe(
-                recipe=Recipe.objects.get(id=1),
-                ingredient=Ingredient.objects.get(id=101),
-                amount=100
-            ),
-            IngredientRecipe(
-                recipe=Recipe.objects.get(id=1),
-                ingredient=Ingredient.objects.get(id=102),
-                amount=100
-            ),
-            IngredientRecipe(
-                recipe=Recipe.objects.get(id=2),
-                ingredient=Ingredient.objects.get(id=103),
-                amount=100
-            ),
-            IngredientRecipe(
-                recipe=Recipe.objects.get(id=3),
-                ingredient=Ingredient.objects.get(id=104),
-                amount=100
-            ),
+        for _ in range(30):
+            random_recipe = Recipe.objects.get(id=randint(1,3))
+            random_ingredient = Recipe.objects.get(id=randint(1,2188))
+            random_amount = randint(1,120)
+
+            recipe_ingredients.append(
+                IngredientRecipe(
+                    recipe=random_recipe,
+                    ingredient=random_ingredient,
+                    amount=random_amount
+                ),
+            )
 
 
-
-
-        )
         IngredientRecipe.objects.bulk_create(recipe_ingredients)
 
         print(Recipe.objects.get(id=1))
