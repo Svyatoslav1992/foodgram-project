@@ -105,15 +105,21 @@ class RecipeReadSerializer(serializers.ModelSerializer):
 
 
 class IngredientRecipeWriteSerializer(serializers.Serializer):
-    id = serializers.IntegerField(required=True)
-    amount = serializers.IntegerField(required=True)
+    # id = serializers.IntegerField(required=True)
+    # amount = serializers.IntegerField(required=True)
 
-    def validate_amount(self, value):
-        if value <= 0:
-            raise serializers.ValidationError(
-                'Количесто ингредиента не может быть меньше <=0'
-            )
-        return value
+    # def validate_amount(self, value):
+    #     if value <= 0:
+    #         raise serializers.ValidationError(
+    #             'Количесто ингредиента не может быть меньше <=0'
+    #         )
+    #     return value
+    id = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
+    amount = serializers.IntegerField()
+
+    class Meta:
+        model = IngredientRecipe
+        fields = 'id', 'amount',
 
 
 class RecipeWriteSerializer(serializers.ModelSerializer):
@@ -128,7 +134,7 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = (
-#            'ingredients',
+            'ingredients',
             'tags',
             'image',
             'name',
