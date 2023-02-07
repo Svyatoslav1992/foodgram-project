@@ -63,7 +63,7 @@ class Command(BaseCommand):
         ]
         Tag.objects.bulk_create(tag)
 
-       
+
         data = [
 
             {'name': 'Суп', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
@@ -82,26 +82,32 @@ class Command(BaseCommand):
         Recipe.objects.bulk_create(Recipe(**recipes) for recipes in data)
 
         for recipe in Recipe.objects.all():
-            recipe.tags.add(randint(1,3))
+            recipe.tags.add(randint(1, 3))
 
         recipe_ingredients = []
-        for _ in range(30):
-            random_recipe = Recipe.objects.get(id=randint(1,3))
-            random_ingredient = Ingredient.objects.get(id=randint(1,2188))
-            random_amount = randint(1,100)
-
-            recipe_ingredients.append(
-                IngredientRecipe(
-                    recipe=random_recipe,
-                    ingredient=random_ingredient,
-                    amount=random_amount
-                ),
-            )
-
+        # for _ in range(30):
+        random_recipe = Recipe.objects.get(id=1)
+        random_ingredient = Ingredient.objects.get(id=randint(1, 2188))
+        random_amount = randint(1, 100)
+        print(random_recipe, random_ingredient, random_amount)
+        #     recipe_ingredients.append(
+        #         IngredientRecipe(
+        #             recipe=random_recipe,
+        #             ingredient=random_ingredient,
+        #             amount=random_amount
+        #         ),
+        #     )
+        recipe_ingredients.append(
+            IngredientRecipe(
+                recipe=random_recipe,
+                ingredient=random_ingredient,
+                amount=random_amount
+            ),
+        )
 
         IngredientRecipe.objects.bulk_create(recipe_ingredients)
 
-        print(Recipe.objects.all())
-        print(IngredientRecipe.objects.all())
+        # print(Recipe.objects.all())
+        # print(IngredientRecipe.objects.all())
 
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
