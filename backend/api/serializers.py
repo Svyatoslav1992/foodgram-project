@@ -151,14 +151,14 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             ) for ingredient in ingredients
         ])
 
-    def create(self, validated_data):
-        ingredients = validated_data.pop('ingredients')
-        tags = validated_data.pop('tags')
-        recipe = Recipe.objects.create(**validated_data)
-        recipe.save()
-        recipe.tags.set(tags)
-        self.create_ingredients(ingredients, recipe)
-        return recipe
+    # def create(self, validated_data):
+    #     ingredients = validated_data.pop('ingredients')
+    #     tags = validated_data.pop('tags')
+    #     recipe = Recipe.objects.create(**validated_data)
+    #     recipe.save()
+    #     recipe.tags.set(tags)
+    #     self.create_ingredients(ingredients, recipe)
+    #     return recipe
 
     def update(self, recipe, validated_data):
         if 'ingredients' in validated_data:
@@ -173,28 +173,28 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             validated_data=validated_data
         )
 
-    # def validate_ingredients(self, value):
-    #     list = []
-    #     for ing in value:
-    #         ing_id = dict(ing).get('id')
-    #         if ing_id in list:
-    #             raise serializers.ValidationError(
-    #                 'Сударь/cударыня, ингредиенты не должны повторяться!'
-    #             )
-    #         list.append(ing_id)
-    #     if not list:
-    #         raise serializers.ValidationError(
-    #             'В рецепте должны быть ингредиенты'
-    #         )
-    #     return value
+    def validate_ingredients(self, value):
+        list = []
+        for ing in value:
+            ing_id = dict(ing).get('id')
+            if ing_id in list:
+                raise serializers.ValidationError(
+                    'Сударь/cударыня, ингредиенты не должны повторяться!'
+                )
+            list.append(ing_id)
+        if not list:
+            raise serializers.ValidationError(
+                'В рецепте должны быть ингредиенты'
+            )
+        return value
 
-    # def validate_cooking_time(self, value):
-    #     if value == 0:
-    #         raise serializers.ValidationError(
-    #             'Сударь/cударыня, '
-    #             'время приготовления не может быть 0 и отрицательным, увы!'
-    #         )
-    #     return value
+    def validate_cooking_time(self, value):
+        if value == 0:
+            raise serializers.ValidationError(
+                'Сударь/cударыня, '
+                'время приготовления не может быть 0 и отрицательным, увы!'
+            )
+        return value
 
     def validate_tags(self, value):
         list = []
