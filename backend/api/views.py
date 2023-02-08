@@ -60,7 +60,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         """Переопределение выбора сериализатора."""
         if self.request.method in permissions.SAFE_METHODS:
-            return RecipeReadSerializer
+             return RecipeReadSerializer
         return RecipeWriteSerializer
 
     @action(

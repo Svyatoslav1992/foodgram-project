@@ -3,6 +3,7 @@ import base64
 import webcolors
 from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
+from djoser.serializers import UserSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
@@ -361,7 +362,11 @@ class AddIngredientSerializer(serializers.ModelSerializer):
         fields = 'id', 'amount',
 
 
-class RecipeListSerializer(serializers.ModelSerializer):
+
+
+
+
+class RecipeReadSerializer(serializers.ModelSerializer):
     """Сериализатор для списка рецептов."""
 
     tags = TagSerializer(many=True)
@@ -397,7 +402,11 @@ class RecipeListSerializer(serializers.ModelSerializer):
         ).exists()
 
 
-class RecipeSerializer(serializers.ModelSerializer):
+
+
+
+
+class RecipeWriteSerializer(serializers.ModelSerializer):
     """Сериализатор для добавления и обновления рецепта."""
 
     author = UsersSerializer(read_only=True)
@@ -480,10 +489,10 @@ class RecipeSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         request = self.context.get('request')
         context = {'request': request}
-        return RecipeListSerializer(instance, context=context).data
+        return RecipeReadSerializer(instance, context=context).data
 
 
-class RecipeShortInfo(RecipeSerializer):
+class RecipeShortInfo(RecipeWriteSerializer):
     """"Сериализатор рецептов  для отображения нужных полей"""
     class Meta:
         model = Recipe
