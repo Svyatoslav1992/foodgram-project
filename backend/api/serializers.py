@@ -217,103 +217,106 @@ class Base64ImageField(serializers.ImageField):
     #     return value
 
 
-# class RecipeShortInfo(RecipeWriteSerializer):
-#     """"Сериализатор рецептов  для отображения нужных полей"""
-#     class Meta:
-#         model = Recipe
-#         fields = ('id', 'name', 'image', 'ingredients', 'cooking_time')
+class RecipeShortInfo(RecipeWriteSerializer):
+    """"Сериализатор рецептов  для отображения нужных полей"""
+    class Meta:
+        model = Recipe
+        fields = ('id', 'name', 'image', 'ingredients', 'cooking_time')
 
 
-# class AddToSerializer(serializers.Serializer):
-#     "Сериализатор для добавления в спискок покупок/избранное"
+class AddToSerializer(serializers.Serializer):
+    "Сериализатор для добавления в спискок покупок/избранное"
 
-#     def to_representation(self, instance):
-#         request = self.context.get('request')
-#         return RecipeShortInfo(
-#             instance.recipe,
-#             context={'request': request}
-#         ).data
+    def to_representation(self, instance):
+        request = self.context.get('request')
+        return RecipeShortInfo(
+            instance.recipe,
+            context={'request': request}
+        ).data
 
-#     def validate(self, data):
-#         request = self.context.get('request')
-#         user = request.user
-#         recipe = data.get('recipe')
-#         if ShoppingCart.objects.filter(recipe=recipe, user=user):
-#             raise serializers.ValidationError(
-#                 'Вы уже добавили этот рецепт в список покупок/избранное'
-#             )
-
-
-# class FollowListSerializer(serializers.ModelSerializer):
-#     """Сериализатор для списка избранного"""
-#     recipes = serializers.SerializerMethodField()
-#     recipes_count = serializers.SerializerMethodField()
-#     is_subscribed = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = User
-#         fields = (
-#             'email',
-#             'id',
-#             'username',
-#             'first_name',
-#             'last_name',
-#             'is_subscribed',
-#             'recipes',
-#             'recipes_count'
-#         )
-
-#     def get_recipes_count(self, obj):
-#         return obj.recipes_author.count()
-
-#     def get_recipes(self, obj):
-#         request = self.context.get('request')
-#         recipes_limit = request.query_params.get('recipes_limit')
-#         if not recipes_limit:
-#             return RecipeShortInfo(
-#                 Recipe.objects.filter(author=obj),
-#                 many=True,
-#                 context={'request': request}
-#             ).data
-#         return RecipeShortInfo(
-#             Recipe.objects.filter(author=obj)[:int(recipes_limit)],
-#             many=True,
-#             context={'request': request}
-#         ).data
-
-#     def get_is_subscribed(self, obj):
-#         request = self.context.get('request')
-#         user = request.user
-#         if not request or user.is_anonymous:
-#             return False
-#         subcribe = user.follower.filter(author=obj)
-#         return subcribe.exists()
+    def validate(self, data):
+        request = self.context.get('request')
+        user = request.user
+        recipe = data.get('recipe')
+        if ShoppingCart.objects.filter(recipe=recipe, user=user):
+            raise serializers.ValidationError(
+                'Вы уже добавили этот рецепт в список покупок/избранное'
+            )
 
 
-# class FollowSerializer(serializers.ModelSerializer):
-#     """Сериализатор для подписки"""
-#     class Meta:
-#         model = Follow
-#         fields = ('author', 'user')
+class FollowListSerializer(serializers.ModelSerializer):
+    """Сериализатор для списка избранного"""
+    recipes = serializers.SerializerMethodField()
+    recipes_count = serializers.SerializerMethodField()
+    is_subscribed = serializers.SerializerMethodField()
 
-#     def to_representation(self, instance):
-#         request = self.context.get('request')
-#         return FollowListSerializer(
-#             instance.author,
-#             context={'request': request}
-#         ).data
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+            'is_subscribed',
+            'recipes',
+            'recipes_count'
+        )
 
-#     def validate(self, data):
-#         request = self.context.get('request')
-#         user = request.user
-#         author = data.get('author')
-#         if Follow.objects.filter(user=user, author=author):
-#             raise serializers.ValidationError('Вы уже подписаны')
-#         if user == author:
-#             raise serializers.ValidationError(
-#                 'Вы не можете подписаться на себя'
-#             )
-#         return data
+    def get_recipes_count(self, obj):
+        return obj.recipes_author.count()
+
+    def get_recipes(self, obj):
+        request = self.context.get('request')
+        recipes_limit = request.query_params.get('recipes_limit')
+        if not recipes_limit:
+            return RecipeShortInfo(
+                Recipe.objects.filter(author=obj),
+                many=True,
+                context={'request': request}
+            ).data
+        return RecipeShortInfo(
+            Recipe.objects.filter(author=obj)[:int(recipes_limit)],
+            many=True,
+            context={'request': request}
+        ).data
+
+    def get_is_subscribed(self, obj):
+        request = self.context.get('request')
+        user = request.user
+        if not request or user.is_anonymous:
+            return False
+        subcribe = user.follower.filter(author=obj)
+        return subcribe.exists()
+
+
+class FollowSerializer(serializers.ModelSerializer):
+    """Сериализатор для подписки"""
+    class Meta:
+        model = Follow
+        fields = ('author', 'user')
+
+    def to_representation(self, instance):
+        request = self.context.get('request')
+        return FollowListSerializer(
+            instance.author,
+            context={'request': request}
+        ).data
+
+    def validate(self, data):
+        request = self.context.get('request')
+        user = request.user
+        author = data.get('author')
+        if Follow.objects.filter(user=user, author=author):
+            raise serializers.ValidationError('Вы уже подписаны')
+        if user == author:
+            raise serializers.ValidationError(
+                'Вы не можете подписаться на себя'
+            )
+        return data
+
+
+
 
 
 
