@@ -43,8 +43,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeReadSerializer
     http_method_names = ('get', 'post', 'patch', 'delete')
-    filter_backends = [DjangoFilterBackend]
-    # filter_backends = (DjangoFilterBackend, )
+    # filter_backends = [DjangoFilterBackend]
+    filter_backends = (DjangoFilterBackend, )
     filterset_class = RecipeFilter
     pagination_class = CustomPagination
     permission_classes = (AuthorOrReadOnly, )
@@ -60,7 +60,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         """Переопределение выбора сериализатора."""
         if self.request.method in permissions.SAFE_METHODS:
-             return RecipeReadSerializer
+            return RecipeReadSerializer
         return RecipeWriteSerializer
 
     @action(
