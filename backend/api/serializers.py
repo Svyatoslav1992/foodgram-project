@@ -201,11 +201,11 @@ class Base64ImageField(serializers.ImageField):
 #         return value
 
 
-class RecipeShortInfo(RecipeReadSerializer):
-    """"Сериализатор рецептов  для отображения нужных полей"""
-    class Meta:
-        model = Recipe
-        fields = ('id', 'name', 'image', 'ingredients', 'cooking_time')
+# class RecipeShortInfo(RecipeReadSerializer):
+#     """"Сериализатор рецептов  для отображения нужных полей"""
+#     class Meta:
+#         model = Recipe
+#         fields = ('id', 'name', 'image', 'ingredients', 'cooking_time')
 
 
 class AddToSerializer(serializers.Serializer):
@@ -481,3 +481,10 @@ class RecipeSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         context = {'request': request}
         return RecipeListSerializer(instance, context=context).data
+
+
+class RecipeShortInfo(RecipeSerializer):
+    """"Сериализатор рецептов  для отображения нужных полей"""
+    class Meta:
+        model = Recipe
+        fields = ('id', 'name', 'image', 'ingredients', 'cooking_time')
