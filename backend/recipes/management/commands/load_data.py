@@ -66,7 +66,7 @@ class Command(BaseCommand):
 
         image1 = SimpleUploadedFile ( 
             name = 'IMG_20230209_153016.jpg' , 
-            content = open ( './IMG_20230209_153016.jpg' ) . read (), 
+            content = open ( '/backend/recipes/management/commands/IMG_20230209_153016.jpg' ) . read (), 
             content_type = "image/jpeg" 
         )
 
