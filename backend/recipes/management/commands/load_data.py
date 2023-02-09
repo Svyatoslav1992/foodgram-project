@@ -63,10 +63,10 @@ class Command(BaseCommand):
         ]
         Tag.objects.bulk_create(tag)
         #image1 = SimpleUploadedFile('IMG_20230209_153016.jpg')
-        ls
+        
         image1 = SimpleUploadedFile ( 
             name = 'IMG_20230209_153016.jpg' , 
-            content = open ( '/backend/recipes/management/commands/IMG_20230209_153016.jpg' ) . read (), 
+            content = open ( '/foodgram-project-react/backend/recipes/management/commands/IMG_20230209_153016.jpg' ) . read (), 
             content_type = "image/jpeg" 
         )
 
