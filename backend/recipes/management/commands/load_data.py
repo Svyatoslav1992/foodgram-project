@@ -66,7 +66,7 @@ class Command(BaseCommand):
         
         image1 = SimpleUploadedFile ( 
             name = 'logo.png' , 
-            content = open ( 'media/images/logo.png' ) . read (), 
+            content = open ( '/media/images/logo.png' ) . read (), 
             content_type = "image/png" 
         )
 
