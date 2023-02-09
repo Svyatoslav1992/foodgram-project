@@ -5,7 +5,7 @@ from random import randint
 from django.core.management import BaseCommand, CommandError
 
 from recipes.models import Ingredient, Recipe, Tag, IngredientRecipe
-
+from django.core.files.uploadedfile import SimpleUploadedFile
 from users.models import User
 
 
@@ -62,7 +62,7 @@ class Command(BaseCommand):
             Tag(id=3, name='Ужин', color='#8775D2', slug='supper'),
         ]
         Tag.objects.bulk_create(tag)
-
+        image1 = SimpleUploadedFile('IMG_20230209_153016.jpg')
 
         data = [
 
@@ -75,7 +75,7 @@ class Command(BaseCommand):
             {'name': 'Суп7', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
             {'name': 'Суп8', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
             {'name': 'Суп9', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
-            {'name': 'Суп10', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
+            {'name': 'Суп10', 'text': 'Тот самый суп', 'image': image1, 'cooking_time': '7', 'author_id': '3'},
 
         ]
 
