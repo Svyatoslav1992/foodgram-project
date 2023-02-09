@@ -65,9 +65,9 @@ class Command(BaseCommand):
         #image1 = SimpleUploadedFile('IMG_20230209_153016.jpg')
         
         image1 = SimpleUploadedFile ( 
-            name = 'IMG_20230209_153016.jpg' , 
-            content = open ( 'foodgram-project-react/backend/recipes/management/commands/IMG_20230209_153016.jpg' ) . read (), 
-            content_type = "image/jpeg" 
+            name = 'logo.png' , 
+            content = open ( 'media/images/logo.png' ) . read (), 
+            content_type = "image/png" 
         )
 
         data = [
