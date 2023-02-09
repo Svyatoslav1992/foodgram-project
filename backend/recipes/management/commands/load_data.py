@@ -63,7 +63,7 @@ class Command(BaseCommand):
         ]
         Tag.objects.bulk_create(tag)
 
-        image1 = open('IMG_20230209_153016.jpg')
+        # image1 = open('IMG_20230209_153016.jpg')
 
         data = [
 
@@ -76,11 +76,11 @@ class Command(BaseCommand):
             {'name': 'Суп7', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
             {'name': 'Суп8', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
             {'name': 'Суп9', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
-            {'name': 'Суп10', 'text': 'Тот самый суп', 'image': image1, 'cooking_time': '7', 'author_id': '3'},
+            {'name': 'Суп10', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
 
         ]
 
-        image1.close()
+        # image1.close()
 
         Recipe.objects.bulk_create(Recipe(**recipes) for recipes in data)
 
