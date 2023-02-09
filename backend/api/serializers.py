@@ -494,7 +494,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
     def get_ingredients(obj):
         queryset = IngredientRecipe.objects.filter(recipe=obj)
         return IngredientRecipeSerializer(queryset, many=True).data
-        return IngredientAmountSerializer(queryset, many=True).data
+        # return IngredientAmountSerializer(queryset, many=True).data
 
     def get_is_favorited(self, obj):
         request = self.context.get('request')
