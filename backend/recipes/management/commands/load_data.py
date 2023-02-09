@@ -62,13 +62,8 @@ class Command(BaseCommand):
             Tag(id=3, name='Ужин', color='#8775D2', slug='supper'),
         ]
         Tag.objects.bulk_create(tag)
-        #image1 = SimpleUploadedFile('IMG_20230209_153016.jpg')
-        
-        image1 = SimpleUploadedFile ( 
-            name = 'logo.png' , 
-            content = open ( '/media/images/logo.png' ) . read (), 
-            content_type = "image/png" 
-        )
+
+        image1 = open('MG_20230209_153016.jpg')
 
         data = [
 
@@ -84,6 +79,8 @@ class Command(BaseCommand):
             {'name': 'Суп10', 'text': 'Тот самый суп', 'image': image1, 'cooking_time': '7', 'author_id': '3'},
 
         ]
+
+        image1.close()
 
         Recipe.objects.bulk_create(Recipe(**recipes) for recipes in data)
 
