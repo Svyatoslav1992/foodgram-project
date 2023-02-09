@@ -4,7 +4,7 @@ import base64
 import webcolors
 from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
-# from djoser.serializers import UserSerializer
+from djoser.serializers import UserSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
@@ -122,6 +122,10 @@ class IngredientRecipeWriteSerializer(serializers.Serializer):
                 'Количесто ингредиента не может быть меньше <=0'
             )
         return value
+
+    # class Meta:
+    #     model = IngredientRecipe
+    #     fields = 'id', 'amount',
 
 class AddIngredientSerializer(serializers.ModelSerializer):
     """Сериализатор для добавления ингредиентов."""
