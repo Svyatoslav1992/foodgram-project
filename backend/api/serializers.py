@@ -37,33 +37,33 @@ class Base64ImageField(serializers.ImageField):
         return super().to_internal_value(data)
 
 
-# class IngredientSerializer(serializers.ModelSerializer):
-#     "Сериализатор для модели Ingredient"
-#     class Meta:
-#         model = Ingredient
-#         fields = ('id', 'name', 'measurement_unit')
+class IngredientSerializer(serializers.ModelSerializer):
+    "Сериализатор для модели Ingredient"
+    class Meta:
+        model = Ingredient
+        fields = ('id', 'name', 'measurement_unit')
 
 
-# class TagSerializer(serializers.ModelSerializer):
-#     "Сериализатор для модели Tag"
-#     color = Hex2NameColor()
+class TagSerializer(serializers.ModelSerializer):
+    "Сериализатор для модели Tag"
+    color = Hex2NameColor()
 
-#     class Meta:
-#         model = Tag
-#         fields = ('id', 'name', 'color', 'slug',)
+    class Meta:
+        model = Tag
+        fields = ('id', 'name', 'color', 'slug',)
 
 
-# class IngredientRecipeSerializer(serializers.ModelSerializer):
-#     "Сериализатор для вспомогательной модели IngredientRecipe"
-#     id = serializers.ReadOnlyField(source='ingredient.id')
-#     name = serializers.ReadOnlyField(source='ingredient.name')
-#     measurement_unit = serializers.ReadOnlyField(
-#         source='ingredient.measurement_unit'
-#     )
+class IngredientRecipeSerializer(serializers.ModelSerializer):
+    "Сериализатор для вспомогательной модели IngredientRecipe"
+    id = serializers.ReadOnlyField(source='ingredient.id')
+    name = serializers.ReadOnlyField(source='ingredient.name')
+    measurement_unit = serializers.ReadOnlyField(
+        source='ingredient.measurement_unit'
+    )
 
-#     class Meta:
-#         model = IngredientRecipe
-#         fields = 'id', 'name', 'measurement_unit', 'amount',
+    class Meta:
+        model = IngredientRecipe
+        fields = 'id', 'name', 'measurement_unit', 'amount',
 
 
 
@@ -419,60 +419,60 @@ class FollowSerializer(serializers.ModelSerializer):
 
 
 
-class RecipeInfoSerializer(serializers.ModelSerializer):
-    """Сериализатор с краткой информацией о рецепте."""
+# class RecipeInfoSerializer(serializers.ModelSerializer):
+#     """Сериализатор с краткой информацией о рецепте."""
 
-    class Meta:
-        model = Recipe
-        fields = (
-            'id',
-            'name',
-            'image',
-            'cooking_time',
-        )
-
-
-class TagSerializer(serializers.ModelSerializer):
-    """Сериализатор описывающий тег."""
-
-    class Meta:
-        model = Tag
-        fields = '__all__'
-        read_only_fields = '__all__',
+#     class Meta:
+#         model = Recipe
+#         fields = (
+#             'id',
+#             'name',
+#             'image',
+#             'cooking_time',
+#         )
 
 
-class IngredientSerializer(serializers.ModelSerializer):
-    """Сериализатор описывающий ингредиент."""
+# class TagSerializer(serializers.ModelSerializer):
+#     """Сериализатор описывающий тег."""
 
-    class Meta:
-        model = Ingredient
-        fields = '__all__'
-        read_only_fields = '__all__',
-
-
-class IngredientAmountSerializer(serializers.ModelSerializer):
-    """Сериализатор описывающий количество ингредиента."""
-
-    id = serializers.ReadOnlyField(source='ingredient.id')
-    name = serializers.ReadOnlyField(source='ingredient.name')
-    measurement_unit = serializers.ReadOnlyField(
-        source='ingredient.measurement_unit'
-    )
-
-    class Meta:
-        model = IngredientRecipe
-        fields = 'id', 'name', 'measurement_unit', 'amount',
+#     class Meta:
+#         model = Tag
+#         fields = '__all__'
+#         read_only_fields = '__all__',
 
 
-class AddIngredientSerializer(serializers.ModelSerializer):
-    """Сериализатор для добавления ингредиентов."""
+# class IngredientSerializer(serializers.ModelSerializer):
+#     """Сериализатор описывающий ингредиент."""
 
-    id = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
-    amount = serializers.IntegerField()
+#     class Meta:
+#         model = Ingredient
+#         fields = '__all__'
+#         read_only_fields = '__all__',
 
-    class Meta:
-        model = IngredientRecipe
-        fields = 'id', 'amount',
+
+# class IngredientAmountSerializer(serializers.ModelSerializer):
+#     """Сериализатор описывающий количество ингредиента."""
+
+#     id = serializers.ReadOnlyField(source='ingredient.id')
+#     name = serializers.ReadOnlyField(source='ingredient.name')
+#     measurement_unit = serializers.ReadOnlyField(
+#         source='ingredient.measurement_unit'
+#     )
+
+#     class Meta:
+#         model = IngredientRecipe
+#         fields = 'id', 'name', 'measurement_unit', 'amount',
+
+
+# class AddIngredientSerializer(serializers.ModelSerializer):
+#     """Сериализатор для добавления ингредиентов."""
+
+#     id = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
+#     amount = serializers.IntegerField()
+
+#     class Meta:
+#         model = IngredientRecipe
+#         fields = 'id', 'amount',
 
 
 class RecipeReadSerializer(serializers.ModelSerializer):
@@ -493,6 +493,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_ingredients(obj):
         queryset = IngredientRecipe.objects.filter(recipe=obj)
+        return IngredientRecipeSerializer(queryset, many=True).data
         return IngredientAmountSerializer(queryset, many=True).data
 
     def get_is_favorited(self, obj):
