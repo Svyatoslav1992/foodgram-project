@@ -216,6 +216,15 @@ class Base64ImageField(serializers.ImageField):
     #         list.append(tag)
     #     return value
 
+class AddIngredientSerializer(serializers.ModelSerializer):
+    """Сериализатор для добавления ингредиентов."""
+
+    id = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
+    amount = serializers.IntegerField()
+
+    class Meta:
+        model = IngredientRecipe
+        fields = 'id', 'amount',
 
 class RecipeWriteSerializer(serializers.ModelSerializer):
     """Сериализатор для добавления и обновления рецепта."""
