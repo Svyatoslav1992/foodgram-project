@@ -63,7 +63,7 @@ class Command(BaseCommand):
         ]
         Tag.objects.bulk_create(tag)
 
-        image1 = open('MG_20230209_153016.jpg')
+        image1 = open('IMG_20230209_153016.jpg')
 
         data = [
 
