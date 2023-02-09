@@ -62,7 +62,13 @@ class Command(BaseCommand):
             Tag(id=3, name='Ужин', color='#8775D2', slug='supper'),
         ]
         Tag.objects.bulk_create(tag)
-        image1 = SimpleUploadedFile('IMG_20230209_153016.jpg')
+        #image1 = SimpleUploadedFile('IMG_20230209_153016.jpg')
+
+        image1 = SimpleUploadedFile ( 
+            name = 'IMG_20230209_153016.jpg' , 
+            content = open ( './IMG_20230209_153016.jpg' ) . read (), 
+            content_type = "image/jpeg" 
+        )
 
         data = [
 
