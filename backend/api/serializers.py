@@ -327,15 +327,15 @@ class IngredientRecipeSerializer(serializers.ModelSerializer):
 #         fields = ('id', 'name', 'image', 'ingredients', 'cooking_time')
 
 
-# class AddToSerializer(serializers.Serializer):
-#     "Сериализатор для добавления в спискок покупок/избранное"
-
-#     def to_representation(self, instance):
-#         request = self.context.get('request')
-#         return RecipeShortInfo(
-#             instance.recipe,
-#             context={'request': request}
-#         ).data
+class AddToSerializer(serializers.Serializer):
+    "Сериализатор для добавления в спискок покупок/избранное"
+        
+    def to_representation(self, instance):
+        request = self.context.get('request')
+        return RecipeShortInfo(
+            instance.recipe,
+            context={'request': request}
+        ).data
 
 #     def validate(self, data):
 #         request = self.context.get('request')
