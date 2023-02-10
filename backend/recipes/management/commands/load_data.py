@@ -36,7 +36,7 @@ class Command(BaseCommand):
                 first_name='Иван',
                 last_name='Труха',
                 email='Ivan@gmail.com',
-                password='1q2w3e4r',
+                password='1234',
             ),
             User(
                 username='Slava',
