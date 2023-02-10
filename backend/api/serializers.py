@@ -66,7 +66,7 @@ class AmountIngredientSerializer(IngredientSerializer):
         exclude = ('ingredient', 'recipe')
 
 
-class RecipeSerializer(serializers.ModelSerializer):
+class RecipeReadSerializer(serializers.ModelSerializer):
     image = Base64ImageField(required=True)
     tags = TagSerializer(many=True)
     ingredients = AmountIngredientSerializer(many=True)
@@ -93,13 +93,13 @@ class RecipeSerializer(serializers.ModelSerializer):
         return False
 
 
-class RecipeShortSerializer(RecipeSerializer):
+class RecipeShortSerializer(RecipeReadSerializer):
     class Meta:
         model = Recipe
         fields = ('id', 'name', 'image', 'cooking_time')
 
 
-class RecipeCreateUpdateSerializer(RecipeSerializer):
+class RecipeWriteSerializer(RecipeReadSerializer):
     ingredients = IngredientPatchCreateSerializer(many=True)
     tags = serializers.ListField(write_only=True)
 
@@ -159,7 +159,7 @@ class RecipeCreateUpdateSerializer(RecipeSerializer):
         return instance
 
 
-class UserSubscribeSerializer(UserListSerializer):
+class FollowSerializer(UserListSerializer):
     recipes = serializers.SerializerMethodField('recipes_limit')
     recipes_count = serializers.SerializerMethodField('get_recipes_count')
 
