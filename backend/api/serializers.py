@@ -116,6 +116,10 @@ class IngredientRecipeWriteSerializer(serializers.Serializer):
             )
         return value
 
+    class Meta:
+        model = IngredientRecipe
+        fields = 'id', 'amount',
+
 
 class RecipeWriteSerializer(serializers.ModelSerializer):
     tags = serializers.PrimaryKeyRelatedField(
