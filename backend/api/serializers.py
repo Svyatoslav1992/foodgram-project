@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from recipes.models import IngredientRecipe, Ingredient, Recipe, Tag, ShoppingCart
-from users.models import User
+from users.models import User, Follow
 
 import base64
 
@@ -199,3 +199,28 @@ class AddToSerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 'Вы уже добавили этот рецепт в список покупок/избранное'
             )
+
+class FollowSerializer(serializers.ModelSerializer):
+    """Сериализатор для подписки"""
+    class Meta:
+        model = Follow
+        fields = ('author', 'user')
+
+    def to_representation(self, instance):
+        request = self.context.get('request')
+        return FollowListSerializer(
+            instance.author,
+            context={'request': request}
+        ).data
+
+    def validate(self, data):
+        request = self.context.get('request')
+        user = request.user
+        author = data.get('author')
+        if Follow.objects.filter(user=user, author=author):
+            raise serializers.ValidationError('Вы уже подписаны')
+        if user == author:
+            raise serializers.ValidationError(
+                'Вы не можете подписаться на себя'
+            )
+        return data
