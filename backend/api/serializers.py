@@ -70,14 +70,14 @@ class RecipeReadSerializer(serializers.ModelSerializer):
     is_favorited = serializers.SerializerMethodField(read_only=True)
     is_in_shopping_cart = serializers.SerializerMethodField(read_only=True)
     author = UsersSerializer(read_only=True)
-    # ingredients = IngredientRecipeSerializer(many=True, read_only=True)
-    ingredients = serializers.SerializerMethodField(read_only=True)
+    ingredients = IngredientRecipeSerializer(many=True, read_only=True)
+    # ingredients = serializers.SerializerMethodField(read_only=True)
     image = Base64ImageField(required=True, allow_null=True)
     tags = TagSerializer(many=True)
 
-    def get_ingredients(self, obj):
-        queryset = IngredientRecipe.objects.filter(recipe=obj)
-        return IngredientRecipeSerializer(queryset, many=True).data
+    # def get_ingredients(self, obj):
+    #     queryset = IngredientRecipe.objects.filter(recipe=obj)
+    #     return IngredientRecipeSerializer(queryset, many=True).data
 
     def get_is_favorited(self, obj):
         request = self.context.get('request')
