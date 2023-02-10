@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from recipes.models import IngredientRecipe, Ingredient, Recipe, Tag
+from recipes.models import IngredientRecipe, Ingredient, Recipe, Tag, ShoppingCart
 from users.models import User
 
 import base64
@@ -180,3 +180,22 @@ class FollowSerializer(UserListSerializer):
                 queryset = queryset[:int(recipes_limit)]
         serializer = RecipeShortSerializer(queryset, many=True)
         return serializer.data
+
+class AddToSerializer(serializers.Serializer):
+    "Сериализатор для добавления в спискок покупок/избранное"
+
+    def to_representation(self, instance):
+        request = self.context.get('request')
+        return RecipeShortSerializer(
+            instance.recipe,
+            context={'request': request}
+        ).data
+
+    def validate(self, data):
+        request = self.context.get('request')
+        user = request.user
+        recipe = data.get('recipe')
+        if ShoppingCart.objects.filter(recipe=recipe, user=user):
+            raise serializers.ValidationError(
+                'Вы уже добавили этот рецепт в список покупок/избранное'
+            )
