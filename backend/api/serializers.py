@@ -159,7 +159,7 @@ class RecipeWriteSerializer(RecipeReadSerializer):
         return instance
 
 
-class FollowSerializer(UserListSerializer):
+class FollowListSerializer(UserListSerializer):
     recipes = serializers.SerializerMethodField('recipes_limit')
     recipes_count = serializers.SerializerMethodField('get_recipes_count')
 
