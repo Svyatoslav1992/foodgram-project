@@ -171,16 +171,26 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             'cooking_time'
         )
 
-    def create_ingredients(self, ingredients, recipe):
-        for ingredient in ingredients:
-            current_ingredient = get_object_or_404(
-                Ingredient, id=ingredient.get('id')
-            )
-            ing, _ = IngredientRecipe.objects.get_or_create(
-                ingredient=current_ingredient,
-                amount=ingredient['amount']
-            )
-            recipe.ingredients.add(ing)
+    # def create_ingredients(self, ingredients, recipe):
+    #     for ingredient in ingredients:
+    #         current_ingredient = get_object_or_404(
+    #             Ingredient, id=ingredient.get('id')
+    #         )
+    #         ing, _ = IngredientRecipe.objects.get_or_create(
+    #             ingredient=current_ingredient,
+    #             amount=ingredient['amount']
+    #         )
+    #         recipe.ingredients.add(ing)
+
+    def create_ingredients(self, ingredients_list, recipe):
+        amounts = [
+            IngredientRecipe(
+                recipe=recipe,
+                amount=ingredient.get('amount'),
+                ingredient_id=ingredient.get('id')
+            ) for ingredient in ingredients_list
+        ]
+        IngredientRecipe.objects.bulk_create(amounts)
 
     def create(self, validated_data):
         ingredients = validated_data.pop('ingredients')
@@ -204,38 +214,38 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             validated_data=validated_data
         )
 
-    def validate_ingredients(self, value):
-        list = []
-        for ing in value:
-            ing_id = dict(ing).get('id')
-            if ing_id in list:
-                raise serializers.ValidationError(
-                    'Сударь/cударыня, ингредиенты не должны повторяться!'
-                )
-            list.append(ing_id)
-        if not list:
-            raise serializers.ValidationError(
-                'В рецепте должны быть ингредиенты'
-            )
-        return value
+    # def validate_ingredients(self, value):
+    #     list = []
+    #     for ing in value:
+    #         ing_id = dict(ing).get('id')
+    #         if ing_id in list:
+    #             raise serializers.ValidationError(
+    #                 'Сударь/cударыня, ингредиенты не должны повторяться!'
+    #             )
+    #         list.append(ing_id)
+    #     if not list:
+    #         raise serializers.ValidationError(
+    #             'В рецепте должны быть ингредиенты'
+    #         )
+    #     return value
 
-    def validate_cooking_time(self, value):
-        if value == 0:
-            raise serializers.ValidationError(
-                'Сударь/cударыня, '
-                'время приготовления не может быть 0 и отрицательным, увы!'
-            )
-        return value
+    # def validate_cooking_time(self, value):
+    #     if value == 0:
+    #         raise serializers.ValidationError(
+    #             'Сударь/cударыня, '
+    #             'время приготовления не может быть 0 и отрицательным, увы!'
+    #         )
+    #     return value
 
-    def validate_tags(self, value):
-        list = []
-        for tag in value:
-            if tag in list:
-                raise serializers.ValidationError(
-                    'Сударь/cударыня, теги не должны повторяться!'
-                )
-            list.append(tag)
-        return value
+    # def validate_tags(self, value):
+    #     list = []
+    #     for tag in value:
+    #         if tag in list:
+    #             raise serializers.ValidationError(
+    #                 'Сударь/cударыня, теги не должны повторяться!'
+    #             )
+    #         list.append(tag)
+    #     return value
 
 
 class RecipeShortInfo(RecipeReadSerializer):
