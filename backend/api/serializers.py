@@ -1,11 +1,20 @@
 from django.shortcuts import get_object_or_404
-from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
 from recipes.models import Ingredient, IngredientRecipe, Recipe, Tag
 from users.models import Follow
 from users.serializers import UsersSerializer
+
+
+import base64
+class Base64ImageField(serializers.ImageField):
+    def to_internal_value(self, data):
+        if isinstance(data, str) and data.startswith('data:image'):
+            format, imgstr = data.split(';base64,')
+            ext = format.split('/')[-1]
+            data = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
+        return super().to_internal_value(data)
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -39,7 +48,7 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    image = Base64ImageField()
+    image = Base64ImageField(required=True, allow_null=True)
     tags = TagSerializer(read_only=True, many=True)
     author = UsersSerializer(read_only=True)
     ingredients = IngredientAmountSerializer(
@@ -132,7 +141,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 
 class CropRecipeSerializer(serializers.ModelSerializer):
-    image = Base64ImageField()
+    image = Base64ImageField(required=True, allow_null=True)
 
     class Meta:
         model = Recipe
