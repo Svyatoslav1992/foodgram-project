@@ -91,14 +91,22 @@ class RecipeReadSerializer(serializers.ModelSerializer):
             return False
         return Favourite.objects.filter(recipe=obj, user=request.user).exists()
 
+    # def get_is_in_shopping_cart(self, obj):
+    #     request = self.context.get('request')
+    #     if not request or request.user.is_anonymous:
+    #         return False
+    #     return ShoppingCart.objects.filter(
+    #         recipe=obj,
+    #         user=request.user
+    #     ).exists()
+
+
     def get_is_in_shopping_cart(self, obj):
         request = self.context.get('request')
-        if not request or request.user.is_anonymous:
+        if request.user.is_anonymous:
             return False
-        return ShoppingCart.objects.filter(
-            recipe=obj,
-            user=request.user
-        ).exists()
+        shopping_cart = request.user.user_shopping_cart.filter(recipe=obj)
+        return shopping_cart.exists()
 
 
 class IngredientRecipeWriteSerializer(serializers.Serializer):
@@ -164,7 +172,7 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         self.create_ingredients(validated_data.get('ingredients'), instance)
         instance.save()
         return instance
-        
+
     def validate_ingredients(self, value):
         list = []
         for ing in value:
