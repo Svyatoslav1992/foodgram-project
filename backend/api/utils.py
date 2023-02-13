@@ -51,7 +51,7 @@ def delete_from(self, model, user, pk):
 #     c.drawString(30, 775, 'Foodgram')
 
 #     c.setFont(SANS_REGULAR_NAME, 20)
-#     c.drawString(30, 740, 'Ваш продуктовый помошник')
+#     c.drawString(30, 740, 'Ваш продуктовый помощник')
 #     c.line(30, 730, 580, 730)
 
 #     c.drawString(30, 710, 'Список покупок')
