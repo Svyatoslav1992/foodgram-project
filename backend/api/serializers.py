@@ -105,6 +105,13 @@ class IngredientRecipeWriteSerializer(serializers.Serializer):
     id = serializers.IntegerField(required=True)
     amount = serializers.IntegerField(required=True)
 
+    def validate_amount(self, value):
+        if value <= 0:
+            raise serializers.ValidationError(
+                'Количесто ингредиента не может быть меньше <=0'
+            )
+        return value
+
 class RecipeWriteSerializer(serializers.ModelSerializer):
     "Сериализатор для добавления создания и изменения рецептов"
     tags = serializers.PrimaryKeyRelatedField(
@@ -156,12 +163,22 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     #         validated_data=validated_data
     #     )
 
-    def update(self, recipe, validated_data):
-        recipe.tags.clear()
-        IngredientRecipe.objects.filter(recipe=recipe).delete()
-        recipe.tags.set(validated_data.pop('tags'))
-        self.create_ingredients(recipe, validated_data.pop('ingredients'))
-        return super().update(recipe, validated_data)
+    # def update(self, recipe, validated_data):
+    #     recipe.tags.clear()
+    #     IngredientRecipe.objects.filter(recipe=recipe).delete()
+    #     recipe.tags.set(validated_data.pop('tags'))
+    #     self.create_ingredients(recipe, validated_data.pop('ingredients'))
+    #     return super().update(recipe, validated_data)
+
+    def update(self, instance, validated_data):
+        ingredients = validated_data.pop('ingredients')
+        tags = validated_data.pop('tags')
+        instance.tags.clear()
+        instance.tags.add(*tags)
+        IngredientRecipe.objects.filter(recipe_id=instance.pk).delete()
+        self.add_ingredients(ingredients, instance)
+        super().update(instance, validated_data)
+        return instance
 
     # def validate_ingredients(self, data):
     #     ingredients = data.get('ingredients')
@@ -270,7 +287,6 @@ class FollowListSerializer(serializers.ModelSerializer):
 
 
 class FollowSerializer(serializers.ModelSerializer):
-    "Сериализатор подписок"
     class Meta:
         model = Follow
         fields = ('author', 'user')
