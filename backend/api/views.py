@@ -77,7 +77,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     #         return delete_from(self, ShoppingCart, request.user, pk)
 
     def cart(self, request, *args, **kwargs):
-        self.serializer_class = RecipeShortInfo
+        # self.serializer_class = RecipeShortInfo
         return add_to(self, request, 'recipe', ShoppingCart, Recipe)
 
     @action(
