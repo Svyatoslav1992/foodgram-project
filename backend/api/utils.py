@@ -74,7 +74,7 @@ def delete_from(self, model, user, pk):
 #         filename='shoppcart_list.pdf'
 #     )
 
-def shopping_list_pdf(cart):
+def download_cart(cart):
     """ Выгрузка списка покупок в pdf """
 
     buffer = BytesIO()
