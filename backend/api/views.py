@@ -69,16 +69,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
         permission_classes=[permissions.IsAuthenticated]
     )
 
-    # def shopping_cart(self, request, pk):
-    #     """Метод для добавления/удаления из список покупок."""
-    #     if request.method == 'POST':
-    #         return add_to(self, ShoppingCart, request.user, pk)
-    #     else:
-    #         return delete_from(self, ShoppingCart, request.user, pk)
-
-    def cart(self, request, *args, **kwargs):
-        # self.serializer_class = RecipeShortInfo
-        return add_to(self, request, 'recipe', ShoppingCart, Recipe)
+    def shopping_cart(self, request, pk):
+        """Метод для добавления/удаления из список покупок."""
+        if request.method == 'POST':
+            return add_to(self, ShoppingCart, request.user, pk)
+        else:
+            return delete_from(self, ShoppingCart, request.user, pk)
 
     @action(
         detail=True,
