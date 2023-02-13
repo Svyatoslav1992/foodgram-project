@@ -10,7 +10,7 @@ from users.permissions import AuthorOrReadOnly
 from api.filters import IngredientFilter, RecipeFilter
 from api.pagination import CustomPagination
 from api.serializers import (IngredientSerializer, RecipeReadSerializer,
-                             RecipeWriteSerializer, TagSerializer)
+                             RecipeWriteSerializer, TagSerializer, RecipeShortInfo)
 from api.utils import add_to, delete_from, download_cart
 
 User = get_user_model()
@@ -68,12 +68,17 @@ class RecipeViewSet(viewsets.ModelViewSet):
         methods=['post', 'delete'],
         permission_classes=[permissions.IsAuthenticated]
     )
-    def shopping_cart(self, request, pk):
-        """Метод для добавления/удаления из список покупок."""
-        if request.method == 'POST':
-            return add_to(self, ShoppingCart, request.user, pk)
-        else:
-            return delete_from(self, ShoppingCart, request.user, pk)
+
+    # def shopping_cart(self, request, pk):
+    #     """Метод для добавления/удаления из список покупок."""
+    #     if request.method == 'POST':
+    #         return add_to(self, ShoppingCart, request.user, pk)
+    #     else:
+    #         return delete_from(self, ShoppingCart, request.user, pk)
+
+    def cart(self, request, *args, **kwargs):
+        self.serializer_class = RecipeShortInfo
+        return add_to(self, request, 'recipe', ShoppingCart, Recipe)
 
     @action(
         detail=True,
