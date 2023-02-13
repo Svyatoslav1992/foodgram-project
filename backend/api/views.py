@@ -103,10 +103,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
 #         return download_cart(list_ing)
 
 class DownloadCart(APIView):
+    """Вью для скачивания списка покупок."""
+
     def get(self, request):
-        cart = request.user.cart.values(
+        list_ing = request.user.user_shopping_cart.values(
+        # list_ing = request.user.cart.values(
             'recipe__ingredients__ingredient__name',
             'recipe__ingredients__ingredient__measurement_unit').order_by(
             'recipe__ingredients__ingredient__name').annotate(
             total=Sum('recipe__ingredients__amount'))
-        return download_cart(cart)
+        return download_cart(list_ing)
