@@ -43,8 +43,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeReadSerializer
     http_method_names = ('get', 'post', 'patch', 'delete')
-    # filter_backends = [DjangoFilterBackend]
-    filter_backends = (DjangoFilterBackend, )
+    filter_backends = [DjangoFilterBackend]
+    # filter_backends = (DjangoFilterBackend, )
     filterset_class = RecipeFilter
     pagination_class = CustomPagination
     permission_classes = (AuthorOrReadOnly, )
@@ -98,8 +98,8 @@ class DownloadCart(APIView):
     """Вью для скачивания списка покупок."""
 
     def get(self, request):
-        list_ing = request.user.recipe_shopping_cart.values(
-        # list_ing = request.user.user_shopping_cart.values(
+        # list_ing = request.user.recipe_shopping_cart.values(
+        list_ing = request.user.user_shopping_cart.values(
             'recipe__ingredients__ingredient__name',
             'recipe__ingredients__ingredient__measurement_unit'
         ).order_by('recipe__ingredients__ingredient__name').annotate(
