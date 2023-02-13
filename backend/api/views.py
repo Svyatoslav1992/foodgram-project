@@ -51,14 +51,17 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Передает в поле author данные о пользователе."""
+
         serializer.save(author=self.request.user)
 
     def perform_destroy(self, instance):
         """Удаляет объект класса рецепт."""
+
         instance.delete()
 
     def get_serializer_class(self):
         """Переопределение выбора сериализатора."""
+
         if self.request.method in permissions.SAFE_METHODS:
             return RecipeReadSerializer
         return RecipeWriteSerializer
@@ -71,6 +74,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def shopping_cart(self, request, pk):
         """Метод для добавления/удаления из список покупок."""
+
         if request.method == 'POST':
             return add_to(self, ShoppingCart, request.user, pk)
         else:
@@ -83,33 +87,21 @@ class RecipeViewSet(viewsets.ModelViewSet):
     )
     def favorite(self, request, pk):
         """Метод для добавления/удаления из избранного."""
+
         if request.method == 'POST':
             return add_to(self, Favourite, request.user, pk)
         else:
             return delete_from(self, Favourite, request.user, pk)
 
 
-# class DownloadCart(APIView):
-#     """Вью для скачивания списка покупок."""
-
-#     permission_classes = [permissions.IsAuthenticated]
-
-#     def get(self, request):
-#         list_ing = request.user.user_shopping_cart.values(
-#             'recipe__ingredients__ingredient__name',
-#             'recipe__ingredients__ingredient__measurement_unit'
-#         ).order_by('recipe__ingredients__ingredient__name').annotate(
-#             summ_amount=Sum('recipe__ingredients__amount'))
-#         return download_cart(list_ing)
-
 class DownloadCart(APIView):
     """Вью для скачивания списка покупок."""
 
     def get(self, request):
-        list_ing = request.user.user_shopping_cart.values(
-        # list_ing = request.user.cart.values(
+        list_ing = request.user.recipe_shopping_cart.values(
+        # list_ing = request.user.user_shopping_cart.values(
             'recipe__ingredients__ingredient__name',
-            'recipe__ingredients__ingredient__measurement_unit').order_by(
-            'recipe__ingredients__ingredient__name').annotate(
-            total=Sum('recipe__ingredients__amount'))
+            'recipe__ingredients__ingredient__measurement_unit'
+        ).order_by('recipe__ingredients__ingredient__name').annotate(
+            summ_amount=Sum('recipe__ingredients__amount'))
         return download_cart(list_ing)
