@@ -80,10 +80,10 @@ class RecipeReadSerializer(serializers.ModelSerializer):
             'is_in_shopping_cart', 'name', 'image', 'text', 'cooking_time'
         )
 
-    @staticmethod
-    def get_ingredients(obj):
-        queryset = IngredientRecipe.objects.filter(recipe=obj)
-        return IngredientRecipeSerializer(queryset, many=True).data
+    # @staticmethod
+    # def get_ingredients(obj):
+    #     queryset = IngredientRecipe.objects.filter(recipe=obj)
+    #     return IngredientRecipeSerializer(queryset, many=True).data
 
     def get_is_favorited(self, obj):
         request = self.context.get('request')
@@ -179,23 +179,6 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         self.add_ingredients(ingredients, instance)
         super().update(instance, validated_data)
         return instance
-
-    # def validate_ingredients(self, data):
-    #     ingredients = data.get('ingredients')
-    #     array = []
-    #     for ingredient in ingredients:
-    #         if ingredient.get('amount') <= 0:
-    #             raise serializers.ValidationError(
-    #                 'Значение ингредиента должно быть меньше 0')
-    #         array.append(ingredient.get('id'))
-    #     if len(array) != len(set(array)):
-    #         raise serializers.ValidationError(
-    #             'Ингредиенты не должны повторяться')
-    #     if len(array) == 0:
-    #         raise serializers.ValidationError(
-    #             'Добавьте хотя бы один ингредиент')
-    #     return data
-
 
     def validate_ingredients(self, value):
         list = []
