@@ -143,18 +143,25 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         self.create_ingredients(ingredients, recipe)
         return recipe
 
+    # def update(self, recipe, validated_data):
+    #     if 'ingredients' in validated_data:
+    #         ingredients = validated_data.pop('ingredients')
+    #         recipe.ingredients.clear()
+    #         self.create_ingredients(ingredients, recipe)
+    #     if 'tags' in validated_data:
+    #         tags_data = validated_data.pop('tags')
+    #         recipe.tags.set(tags_data)
+    #     return super().update(
+    #         instance=recipe,
+    #         validated_data=validated_data
+    #     )
+
     def update(self, recipe, validated_data):
-        if 'ingredients' in validated_data:
-            ingredients = validated_data.pop('ingredients')
-            recipe.ingredients.clear()
-            self.create_ingredients(ingredients, recipe)
-        if 'tags' in validated_data:
-            tags_data = validated_data.pop('tags')
-            recipe.tags.set(tags_data)
-        return super().update(
-            instance=recipe,
-            validated_data=validated_data
-        )
+        recipe.tags.clear()
+        IngredientRecipe.objects.filter(recipe=recipe).delete()
+        recipe.tags.set(validated_data.pop('tags'))
+        self.create_ingredients(recipe, validated_data.pop('ingredients'))
+        return super().update(recipe, validated_data)
 
     # def validate_ingredients(self, data):
     #     ingredients = data.get('ingredients')
