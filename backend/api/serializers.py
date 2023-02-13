@@ -215,26 +215,26 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             validated_data=validated_data
         )
 
-    # def validate_ingredients(self, value):
-    #     list = []
-    #     for ing in value:
-    #         ing_id = dict(ing).get('id')
-    #         if ing_id in list:
-    #             raise serializers.ValidationError(
-    #                 'Сударь/cударыня, ингредиенты не должны повторяться!'
-    #             )
-    #         list.append(ing_id)
-    #     if not list:
-    #         raise serializers.ValidationError(
-    #             'В рецепте должны быть ингредиенты'
-    #         )
-    #     return value
+    def validate_ingredients(self, data):
+        ingredients = data.get('ingredients')
+        array = []
+        for ingredient in ingredients:
+            if ingredient.get('amount') <= 0:
+                raise serializers.ValidationError(
+                    'Значение ингредиента должно быть больше 0')
+            array.append(ingredient.get('id'))
+        if len(array) != len(set(array)):
+            raise serializers.ValidationError(
+                'Ингредиенты не должны повторяться')
+        if len(array) == 0:
+            raise serializers.ValidationError(
+                'Добавьте хотя бы один ингредиент')
+        return data
 
     def validate_cooking_time(self, value):
         if value == 0:
             raise serializers.ValidationError(
-                'Сударь/cударыня, '
-                'время приготовления не может быть 0 и отрицательным, увы!'
+                'Время приготовления должно быть больше нуля.'
             )
         return value
 
@@ -243,7 +243,7 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         for tag in value:
             if tag in list:
                 raise serializers.ValidationError(
-                    'Сударь/cударыня, теги не должны повторяться!'
+                    'Теги не должны повторяться!'
                 )
             list.append(tag)
         return value
