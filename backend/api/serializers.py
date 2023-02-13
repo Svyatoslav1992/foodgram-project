@@ -196,6 +196,21 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
     #             'Добавьте хотя бы один ингредиент')
     #     return data
 
+
+    def validate_ingredients(self, value):
+        list = []
+        for ing in value:
+            ing_id = dict(ing).get('id')
+            if ing_id in list:
+                raise serializers.ValidationError(
+                    'Ингредиенты не должны повторяться!'
+                )
+            list.append(ing_id)
+        if not list:
+            raise serializers.ValidationError(
+                'В рецепте должны быть ингредиенты'
+            )
+        return value
     def validate_cooking_time(self, value):
         if value == 0:
             raise serializers.ValidationError(
