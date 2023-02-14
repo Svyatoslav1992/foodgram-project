@@ -68,7 +68,7 @@ class Command(BaseCommand):
         recipes_1 = {'name': 'Суп11', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'}
 
         data = [
-            recipes_1
+            recipes_1,
             {'name': 'Суп1', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
 
             {'name': 'Суп2', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
