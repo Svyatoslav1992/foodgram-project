@@ -71,32 +71,65 @@ class Command(BaseCommand):
                      'cooking_time': '7', 
                      'author_id': '1',
         }
+        recipes_2 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+        }
+        recipes_3 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+        }
+        recipes_4 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+        }
+        recipes_5 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+        }
+        recipes_6 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+        }
+        recipes_7 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+        }
+        recipes_8 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+        }
+        recipes_9 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+        }
+        recipes_10 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+        }
 
         data = [
-            recipes_1,
-            {'name': 'Суп1', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
-
-            {'name': 'Суп2', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
-
-            {'name': 'Суп3', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
-
-            {'name': 'Суп4', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '2'},
-
-            {'name': 'Суп5', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '2'},
-
-            {'name': 'Суп6', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '2'},
-
-            {'name': 'Суп7', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
-
-            {'name': 'Суп8', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
-
-            {'name': 'Суп9', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
-
-            {'name': 'Суп10', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
-
+            recipes_1, recipes_2, recipes_3, recipes_4, recipes_5,
+            recipes_6, recipes_7, recipes_8, recipes_9, recipes_10,
         ]
-
-        # image1.close()
 
         Recipe.objects.bulk_create(Recipe(**recipes) for recipes in data)
 
