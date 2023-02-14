@@ -65,9 +65,10 @@ class Command(BaseCommand):
 
         # Загрузка рецептов без тэгов и ингридиентов
         # https://www.russianfood.com/recipes/recipe.php?rid=102711
+        image_recipes = SimpleUploadFile('IMG_20230209_153016.jpg' ,content_type='image/jpeg')
         recipes_1 = {'name': 'Суп «Харчо»',
                      'text': 'Тот самый суп',
-                     'image': '',
+                     'image': image_recipes,
                      'cooking_time': '7', 
                      'author_id': '1',
         }
