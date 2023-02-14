@@ -65,7 +65,7 @@ class Command(BaseCommand):
 
         # Загрузка рецептов без тэгов и ингридиентов
         # https://www.russianfood.com/recipes/recipe.php?rid=102711
-        image_recipes = SimpleUploadedFile('IMG_20230209_153016.jpg', content = open('IMG_20230209_153016.jpg').read() ,content_type='image/jpeg')
+        image_recipes = SimpleUploadedFile('IMG_20230209_153016.jpg', content = open('/app/recipes/management/commands/IMG_20230209_153016.jpg').read() ,content_type='image/jpeg')
         recipes_1 = {'name': 'Суп «Харчо»',
                      'text': 'Тот самый суп',
                      'image': image_recipes,
