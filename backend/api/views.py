@@ -98,7 +98,6 @@ class DownloadCart(APIView):
     """Вью для скачивания списка покупок."""
 
     def get(self, request):
-        # list_ing = request.user.recipe_shopping_cart.values(
         list_ing = request.user.user_shopping_cart.values(
             'recipe__ingredients__ingredient__name',
             'recipe__ingredients__ingredient__measurement_unit'

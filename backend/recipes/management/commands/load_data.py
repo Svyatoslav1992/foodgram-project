@@ -65,74 +65,74 @@ class Command(BaseCommand):
 
         # Загрузка рецептов без тэгов и ингридиентов
         # https://www.russianfood.com/recipes/recipe.php?rid=102711
-        image_recipes = SimpleUploadedFile('IMG_20230209_153016.jpg', content = open('/app/recipes/management/commands/IMG_20230209_153016.jpg').read() ,content_type='image/jpeg')
+        image_recipes = SimpleUploadedFile('IMG_20230209_153016.jpg', content = open('/app/recipes/management/commands/IMG_20230209_153016.jpg').read(), 'rb' ,content_type='image/jpeg')
         recipes_1 = {'name': 'Суп «Харчо»',
                      'text': 'Тот самый суп',
                      'image': image_recipes,
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=141964
         recipes_2 = {'name': 'Куриный суп с вермишелью',
                      'text': 'Тот самый суп',
                      'image': '',
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=153355
         recipes_3 = {'name': 'Тосканский суп с фаршем',
                      'text': 'Тот самый суп',
                      'image': '',
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=130026
         recipes_4 = {'name': 'Сырный суп по‑французски, с курицей',
                      'text': 'Тот самый суп',
                      'image': '',
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=156000
         recipes_5 = {'name': 'Томатный суп с курицей, фасолью и овощами',
                      'text': 'Тот самый суп',
                      'image': '',
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=160235
         recipes_6 = {'name': 'Куриный суп с яйцом',
                      'text': 'Тот самый суп',
                      'image': '',
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=91742
         recipes_7 = {'name': 'Суп картофельный с клецками',
                      'text': 'Тот самый суп',
                      'image': '',
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=120468
         recipes_8 = {'name': 'Любимый суп',
                      'text': 'Тот самый суп',
                      'image': '',
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=150580
         recipes_9 = {'name': 'Суп "Затируха" с курицей',
                      'text': 'Тот самый суп',
                      'image': '',
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=169194
         recipes_10 = {'name': 'Куриный суп с чесночными галушками',
                      'text': 'Тот самый суп',
                      'image': '',
-                     'cooking_time': '7', 
+                     'cooking_time': '7',
                      'author_id': '1',
         }
 
@@ -149,7 +149,7 @@ class Command(BaseCommand):
 
         # Загрузка ингридиентов в рецептах
         recipe_ingredients = []
-      
+
         # Рецепт 1
         id_recipes = Recipe.objects.get(id=1)
         add_ingredients = (
