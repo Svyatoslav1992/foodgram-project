@@ -70,7 +70,6 @@ class Command(BaseCommand):
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
-                     'ingredients': {'id': '1', 'amount': '10' }
         }
 
         data = [
