@@ -65,17 +65,28 @@ class Command(BaseCommand):
 
         # image1 = open('IMG_20230209_153016.jpg')
 
-        data = [
+        recipes_1 = {'name': 'Суп11', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
 
+        data = [
+            recipes_1
             {'name': 'Суп1', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
+
             {'name': 'Суп2', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
+
             {'name': 'Суп3', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'},
+
             {'name': 'Суп4', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '2'},
+
             {'name': 'Суп5', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '2'},
+
             {'name': 'Суп6', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '2'},
+
             {'name': 'Суп7', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
+
             {'name': 'Суп8', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
+
             {'name': 'Суп9', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
+
             {'name': 'Суп10', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '3'},
 
         ]
