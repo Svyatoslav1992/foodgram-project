@@ -64,6 +64,7 @@ class Command(BaseCommand):
         Tag.objects.bulk_create(tag)
 
         # Загрузка рецептов без тэгов и ингридиентов
+        
         # https://www.russianfood.com/recipes/recipe.php?rid=102711
         # image_recipes = SimpleUploadedFile('IMG_20230209_153016.jpg', content = open('/app/recipes/management/commands/IMG_20230209_153016.jpg', 'rb').read(),content_type='image/jpeg')
         recipes_1 = {'name': 'Суп «Харчо»',
