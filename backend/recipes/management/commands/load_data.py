@@ -148,7 +148,7 @@ class Command(BaseCommand):
 
         # Загрузка ингридиентов в рецептах
         recipe_ingredients = []
-        recipe_ingredients.append(
+        recipe_ingredients.extend(
             IngredientRecipe(
                 recipe=Recipe.objects.get(id=1),
                 ingredient=Ingredient.objects.get(id=randint(1, 2188)),
