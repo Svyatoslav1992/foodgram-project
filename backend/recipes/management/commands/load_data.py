@@ -63,63 +63,72 @@ class Command(BaseCommand):
         ]
         Tag.objects.bulk_create(tag)
 
-        # image1 = open('IMG_20230209_153016.jpg')
-
-        recipes_1 = {'name': 'Суп11',
+        # Загрузка рецептов без тэгов и ингридиентов
+        # https://www.russianfood.com/recipes/recipe.php?rid=102711
+        recipes_1 = {'name': 'Суп «Харчо»',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
         }
-        recipes_2 = {'name': 'Суп11',
+        # https://www.russianfood.com/recipes/recipe.php?rid=141964
+        recipes_2 = {'name': 'Куриный суп с вермишелью',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
         }
-        recipes_3 = {'name': 'Суп11',
+        # https://www.russianfood.com/recipes/recipe.php?rid=153355
+        recipes_3 = {'name': 'Тосканский суп с фаршем',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
         }
-        recipes_4 = {'name': 'Суп11',
+        # https://www.russianfood.com/recipes/recipe.php?rid=130026
+        recipes_4 = {'name': 'Сырный суп по‑французски, с курицей',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
         }
-        recipes_5 = {'name': 'Суп11',
+        # https://www.russianfood.com/recipes/recipe.php?rid=156000
+        recipes_5 = {'name': 'Томатный суп с курицей, фасолью и овощами',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
         }
-        recipes_6 = {'name': 'Суп11',
+        # https://www.russianfood.com/recipes/recipe.php?rid=160235
+        recipes_6 = {'name': 'Куриный суп с яйцом',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
         }
-        recipes_7 = {'name': 'Суп11',
+        # https://www.russianfood.com/recipes/recipe.php?rid=91742
+        recipes_7 = {'name': 'Суп картофельный с клецками',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
         }
-        recipes_8 = {'name': 'Суп11',
+        # https://www.russianfood.com/recipes/recipe.php?rid=120468
+        recipes_8 = {'name': 'Любимый суп',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
         }
-        recipes_9 = {'name': 'Суп11',
+        # https://www.russianfood.com/recipes/recipe.php?rid=150580
+        recipes_9 = {'name': 'Суп "Затируха" с курицей',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
                      'author_id': '1',
         }
-        recipes_10 = {'name': 'Суп11',
+        # https://www.russianfood.com/recipes/recipe.php?rid=169194
+        recipes_10 = {'name': 'Куриный суп с чесночными галушками',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7', 
@@ -133,27 +142,32 @@ class Command(BaseCommand):
 
         Recipe.objects.bulk_create(Recipe(**recipes) for recipes in data)
 
+        # Загрузка тэгов в рецептах
         for recipe in Recipe.objects.all():
             recipe.tags.add(randint(1, 3))
 
+        # Загрузка ингридиентов в рецептах
         recipe_ingredients = []
-        # for _ in range(30):
-        random_recipe = Recipe.objects.get(id=10)
-        random_ingredient = Ingredient.objects.get(id=randint(1, 2188))
-        random_amount = randint(1, 100)
-        print(random_recipe, random_ingredient, random_amount)
-        #     recipe_ingredients.append(
-        #         IngredientRecipe(
-        #             recipe=random_recipe,
-        #             ingredient=random_ingredient,
-        #             amount=random_amount
-        #         ),
-        #     )
         recipe_ingredients.append(
             IngredientRecipe(
-                recipe=random_recipe,
-                ingredient=random_ingredient,
-                amount=random_amount
+                recipe=Recipe.objects.get(id=1),
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=Recipe.objects.get(id=1),
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=Recipe.objects.get(id=1),
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=Recipe.objects.get(id=1),
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
             ),
         )
 
