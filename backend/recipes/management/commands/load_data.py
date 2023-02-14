@@ -7,7 +7,7 @@ from django.core.management import BaseCommand, CommandError
 from recipes.models import Ingredient, Recipe, Tag, IngredientRecipe
 from django.core.files.uploadedfile import SimpleUploadedFile
 from users.models import User
-
+django.core.files.uploadedfile import SimpleUploadedFile
 
 class Command(BaseCommand):
     """Загружает тестовые данные."""
