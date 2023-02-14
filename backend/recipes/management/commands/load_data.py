@@ -148,24 +148,261 @@ class Command(BaseCommand):
 
         # Загрузка ингридиентов в рецептах
         recipe_ingredients = []
+      
+        # Рецепт 1
+        id_recipes = Recipe.objects.get(id=1)
         add_ingredients = (
              IngredientRecipe(
-                recipe=Recipe.objects.get(id=1),
+                recipe=id_recipes,
                 ingredient=Ingredient.objects.get(id=randint(1, 2188)),
                 amount= 10
             ),
             IngredientRecipe(
-                recipe=Recipe.objects.get(id=1),
+                recipe=id_recipes,
                 ingredient=Ingredient.objects.get(id=randint(1, 2188)),
                 amount= 10
             ),
             IngredientRecipe(
-                recipe=Recipe.objects.get(id=1),
+                recipe=id_recipes,
                 ingredient=Ingredient.objects.get(id=randint(1, 2188)),
                 amount= 10
             ),
             IngredientRecipe(
-                recipe=Recipe.objects.get(id=1),
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            )
+        )
+        recipe_ingredients.extend(add_ingredients)
+
+        # Рецепт 2
+        id_recipes = Recipe.objects.get(id=2)
+        add_ingredients = (
+             IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            )
+        )
+        recipe_ingredients.extend(add_ingredients)
+
+        # Рецепт 3
+        id_recipes = Recipe.objects.get(id=3)
+        add_ingredients = (
+             IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            )
+        )
+        recipe_ingredients.extend(add_ingredients)
+
+        # Рецепт 4
+        id_recipes = Recipe.objects.get(id=4)
+        add_ingredients = (
+             IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            )
+        )
+        recipe_ingredients.extend(add_ingredients)
+
+        # Рецепт 5
+        id_recipes = Recipe.objects.get(id=5)
+        add_ingredients = (
+             IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            )
+        )
+        recipe_ingredients.extend(add_ingredients)
+
+        # Рецепт 6
+        id_recipes = Recipe.objects.get(id=6)
+        add_ingredients = (
+             IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            )
+        )
+        recipe_ingredients.extend(add_ingredients)
+
+        # Рецепт 7
+        id_recipes = Recipe.objects.get(id=7)
+        add_ingredients = (
+             IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            )
+        )
+        recipe_ingredients.extend(add_ingredients)
+
+        # Рецепт 8
+        id_recipes = Recipe.objects.get(id=8)
+        add_ingredients = (
+             IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            )
+        )
+        recipe_ingredients.extend(add_ingredients)
+
+        # Рецепт 9
+        id_recipes = Recipe.objects.get(id=9)
+        add_ingredients = (
+             IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            )
+        )
+        recipe_ingredients.extend(add_ingredients)
+
+        # Рецепт 10
+        id_recipes = Recipe.objects.get(id=10)
+        add_ingredients = (
+             IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
+                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                amount= 10
+            ),
+            IngredientRecipe(
+                recipe=id_recipes,
                 ingredient=Ingredient.objects.get(id=randint(1, 2188)),
                 amount= 10
             )
