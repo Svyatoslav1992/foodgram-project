@@ -65,7 +65,13 @@ class Command(BaseCommand):
 
         # image1 = open('IMG_20230209_153016.jpg')
 
-        recipes_1 = {'name': 'Суп11', 'text': 'Тот самый суп', 'image': '', 'cooking_time': '7', 'author_id': '1'}
+        recipes_1 = {'name': 'Суп11',
+                     'text': 'Тот самый суп',
+                     'image': '',
+                     'cooking_time': '7', 
+                     'author_id': '1',
+                     'ingredients': {'id': '1', 'amount': '10' }
+        }
 
         data = [
             recipes_1,
