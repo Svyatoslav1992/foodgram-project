@@ -148,8 +148,8 @@ class Command(BaseCommand):
 
         # Загрузка ингридиентов в рецептах
         recipe_ingredients = []
-        recipe_ingredients.extend(
-            IngredientRecipe(
+        add_ingredients = (
+             IngredientRecipe(
                 recipe=Recipe.objects.get(id=1),
                 ingredient=Ingredient.objects.get(id=randint(1, 2188)),
                 amount= 10
@@ -168,8 +168,9 @@ class Command(BaseCommand):
                 recipe=Recipe.objects.get(id=1),
                 ingredient=Ingredient.objects.get(id=randint(1, 2188)),
                 amount= 10
-            ),
+            )
         )
+        recipe_ingredients.extend(add_ingredients)
 
         IngredientRecipe.objects.bulk_create(recipe_ingredients)
         self.stdout.write(self.style.SUCCESS('Загрузка тестовых данных завершена!'))
