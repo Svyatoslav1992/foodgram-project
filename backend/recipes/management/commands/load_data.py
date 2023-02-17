@@ -63,6 +63,7 @@ class Command(BaseCommand):
         ]
         Tag.objects.bulk_create(tag)
 
+
         # # Загрузка рецептов без тэгов и ингридиентов
 
         # # https://www.russianfood.com/recipes/recipe.php?rid=102711
