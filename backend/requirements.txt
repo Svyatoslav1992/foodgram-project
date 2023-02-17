@@ -1,7 +1,6 @@
 asgiref==3.5.2
 Django==3.2.16
 django-filter==22.1
-django-cors-headers==3.13.0
 django-templated-mail==1.1.1
 djangorestframework==3.14.0
 djangorestframework-simplejwt
@@ -11,6 +10,4 @@ Pillow==9.2.0
 psycopg2-binary==2.9.1
 python-dotenv==0.21.0
 reportlab==3.6.12
-django-colorfield==0.7.2
-webcolors==1.12
-pandas==1.1.5
+pandas==1.1.3

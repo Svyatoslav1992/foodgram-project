@@ -1,9 +1,0 @@
-GET http://127.0.0.1:8000/api/recipes/
-
-Отображение рецептов
-
-###
-Get http://127.0.0.1:8000/admin/login/?next=/admin/ HTTP/1.1
-Authorization: Basic admin@gmail.com:147556Rere
-
-###

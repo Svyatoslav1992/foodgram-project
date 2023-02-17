@@ -3,37 +3,43 @@ from django.db import models
 
 
 class User(AbstractUser):
-    email = models.EmailField('email address', unique=True)
-
+    """ Переопределенный пользователь """
+    email = models.EmailField(
+        verbose_name='Электронная почта',
+        unique=True
+    )
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-        constraints = [
-            models.UniqueConstraint(
-                fields=['username', 'email'],
-                name='unique_username_email'
-            )
-        ]
 
     def __str__(self):
-        return f'{self.username}'
+        return self.email
+
+    def save(self, *args, **kwargs):
+        self.email = self.email.lower()
+        super().save(*args, **kwargs)
 
 
-class Follow(models.Model):
+class Subscribe(models.Model):
+    """ Подписка на пользователя """
     user = models.ForeignKey(
         User,
-        verbose_name='Пользователь',
         on_delete=models.CASCADE,
-        related_name='follower'
+        verbose_name='Пользователь',
+        related_name='subscribed'
     )
     author = models.ForeignKey(
         User,
-        verbose_name='Автор',
         on_delete=models.CASCADE,
-        related_name='following'
+        verbose_name='Подписан на',
+        related_name='subscribers'
+    )
+    date = models.DateTimeField(
+        verbose_name='Дата подписки',
+        auto_now_add=True
     )
 
     class Meta:
@@ -42,9 +48,9 @@ class Follow(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['user', 'author'],
-                name='unique_subscribe'
-            ),
+                name='unique_sub',
+            )
         ]
 
-    def __str__(self) -> str:
-        return f"{self.user} подписан на {self.author}"
+    def __str__(self):
+        return f'{self.user} sub to {self.author}'

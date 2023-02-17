@@ -1,40 +1,50 @@
 from django.contrib import admin
-from users.models import Follow, User
 
-from recipes.models import (Favourite, Ingredient, IngredientRecipe, Recipe,
-                            ShoppingCart, Tag)
+from .models import Amount, Favorite, Ingredient, Recipe, ShoppingCart, Tag
 
 
-@admin.register(Ingredient)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ('created', 'name', 'author', 'favorited_count')
+    list_editable = ('name',)
+    list_filter = ('author', 'name', 'tags')
+    ordering = ('created',)
+    readonly_fields = ('favorited_count',)
+
+    def favorited_count(self, obj):
+        return obj.favorited.count()
+
+    favorited_count.short_description = 'В избранном'
+
+
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('name', 'measurement_unit',)
-    empty_value_display = '-пусто-'
-    search_fields = ('name',)
+    list_filter = ('name',)
+    ordering = ('id',)
 
 
-@admin.register(Tag)
+class AmountAdmin(admin.ModelAdmin):
+    list_display = ('id', 'amount', 'ingredient', 'recipe')
+    ordering = ('id',)
+
+
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('name', 'color', 'slug',)
-    empty_value_display = '-пусто-'
+    list_display = ('name', 'color', 'slug')
+    ordering = ('id',)
 
 
-class AmountInLine(admin.StackedInline):
-    model = IngredientRecipe
+class ShoppingCartAdmin(admin.ModelAdmin):
+    list_display = ('user', 'recipe')
+    ordering = ('user',)
 
 
-@admin.register(Recipe)
-class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'text', 'image', 'cooking_time', 'author',)
-    list_filter = ('author', 'tags',)
-    inlines = [AmountInLine, ]
+class FavoriteAdmin(admin.ModelAdmin):
+    list_display = ('user', 'recipe')
+    ordering = ('user',)
 
 
-@admin.register(IngredientRecipe)
-class IngredientRecipeAdmin(admin.ModelAdmin):
-    list_display = ('ingredient', 'amount',)
-
-
-admin.site.register(ShoppingCart)
-admin.site.register(Follow)
-admin.site.register(Favourite)
-admin.site.register(User)
+admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Ingredient, IngredientAdmin)
+admin.site.register(Amount, AmountAdmin)
+admin.site.register(Tag, TagAdmin)
+admin.site.register(ShoppingCart, ShoppingCartAdmin)
+admin.site.register(Favorite, FavoriteAdmin)
