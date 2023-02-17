@@ -61,14 +61,14 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            # sudo apt update
-            # sudo apt upgrade -y
-            # sudo apt install python3-pip python3-venv git -y
-            # sudo apt install docker-compose -y
-            # sudo apt install docker.io -y
-            # sudo apt install nodejs -y
-            # sudo apt install npm -y
-            # sudo apt install postgresql postgresql-contrib -y
+            sudo apt update
+            sudo apt upgrade -y
+            sudo apt install python3-pip python3-venv git -y
+            sudo apt install docker-compose -y
+            sudo apt install docker.io -y
+            sudo apt install nodejs -y
+            sudo apt install npm -y
+            sudo apt install postgresql postgresql-contrib -y
 
 
             sudo docker-compose down
