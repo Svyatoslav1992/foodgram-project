@@ -56,20 +56,20 @@ jobs:
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
-          # host: ${{ secrets.HOST }}
-          # username: ${{ secrets.USER }}
-          # key: ${{ secrets.SSH_KEY }}
-          # passphrase: ${{ secrets.PASSPHRASE }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
 
           script: |
-            sudo apt update
-            sudo apt upgrade -y
-            sudo apt install python3-pip python3-venv git -y
-            sudo apt install docker-compose -y
-            sudo apt install docker.io -y
-            sudo apt install nodejs -y
-            sudo apt install npm -y
-            sudo apt install postgresql postgresql-contrib -y
+            # sudo apt update
+            # sudo apt upgrade -y
+            # sudo apt install python3-pip python3-venv git -y
+            # sudo apt install docker-compose -y
+            # sudo apt install docker.io -y
+            # sudo apt install nodejs -y
+            # sudo apt install npm -y
+            # sudo apt install postgresql postgresql-contrib -y
 
 
             sudo docker-compose down
@@ -93,8 +93,9 @@ jobs:
             echo POSTGRES_PASSWORD=postgres >> .env
             echo DB_HOST=db >> .env
             echo DB_PORT=5432 >> .env
-            echo ALLOWED_HOSTS= 84.201.165.229 >> .env
-            echo SECRET_KEY='django-insecure-@_8zpdw(j%91%u2yf076(!$i*^xei^h%%%+e2zwm8olp9fr5km' >> .env
+
+            # echo ALLOWED_HOSTS= 84.201.165.229 >> .env
+            # echo SECRET_KEY='django-insecure-@_8zpdw(j%91%u2yf076(!$i*^xei^h%%%+e2zwm8olp9fr5km' >> .env
 
             # echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             # echo DB_NAME=${{ secrets.DB_NAME }} >> .env
