@@ -61,10 +61,10 @@ jobs:
           # key: ${{ secrets.SSH_KEY }}
           # passphrase: ${{ secrets.PASSPHRASE }}
 
-          host: 90.156.230.25
-          username: root
+          host: '90.156.230.25'
+          username: 'root'
           key: ${{ secrets.SSH_KEY }}
-          passphrase: uzXF2bM3
+          passphrase: 'uzXF2bM3'
 
           script: |
             sudo apt update
