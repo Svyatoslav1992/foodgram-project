@@ -56,15 +56,15 @@ jobs:
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
-          # host: ${{ secrets.HOST }}
-          # username: ${{ secrets.USER }}
-          # key: ${{ secrets.SSH_KEY }}
-          # passphrase: ${{ secrets.PASSPHRASE }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
 
-          host: 90.156.230.25
-          username: root
-          key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCrboQR/QjpBgsE3KCPflCZ5s4dNrZQkW9tmDhNwmIzmZgzJgp4Wymvkiz4Kfq1/Ey4NIaFAbfpYSaHhdpt6cmngud3qvER53N6CAxL8RWFbXW6XazICDNHBhw5kC3Ju8KpVehUCkbICFSeJB6YO/edz2eMdwcs6poyo1kq3ADDNYh0GRrPnq8eUMTChs6CE+dZaExif+85GvhZVuKSujP80KjN5r1u5gFLzUGJ8lp6Ho7vvVH50fwXcWwEZszPcA2TVIECzilfygWfPVqDlqLGETpBTL6fiJAjZLbwR2o1gIeBmA+ppGwfOn/Bd27qZ34oWrtIBIWjDzK5goVxasJbrUxAYPf49Y0BYm3gMYvoH9jetnaRg6pr2qTuPMrf3QVUP5oeq+/yH2KiyAcSlszMr0Uz5Wixypt8CcA34mN/Ep+5ea7l7Q0xRBVufV2BTl+tDVU1j9OuLg7Yc1p2iRMZ2E1zW/cgIqR4ki/Ny1R9X4XMUoAYoSDnBwUxejorDT0= Slava@DESKTOP-O3R9P44
-          passphrase: uzXF2bM3
+          # host: 90.156.230.25
+          # username: root
+          # key: ${{ secrets.SSH_KEY }}
+          # passphrase: uzXF2bM3
 
           script: |
             sudo apt update
