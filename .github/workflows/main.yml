@@ -113,6 +113,8 @@ jobs:
             # sudo docker-compose exec -T web python manage.py load_tags
             # sudo docker-compose exec -T web python manage.py load_users
             # sudo docker-compose exec -T web python manage.py load_recipes
+
+            docker-compose ps
   send_message:
     runs-on: ubuntu-latest
     needs: deploy
