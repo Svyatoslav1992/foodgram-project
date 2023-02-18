@@ -363,22 +363,22 @@ class Command(BaseCommand):
         add_ingredients = (
              IngredientRecipe(
                 recipe=id_recipes,
-                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                ingredient=Ingredient.objects.get(id=12),
                 amount= 10
             ),
             IngredientRecipe(
                 recipe=id_recipes,
-                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                ingredient=Ingredient.objects.get(id=11),
                 amount= 10
             ),
             IngredientRecipe(
                 recipe=id_recipes,
-                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                ingredient=Ingredient.objects.get(id=10),
                 amount= 10
             ),
             IngredientRecipe(
                 recipe=id_recipes,
-                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                ingredient=Ingredient.objects.get(id=9),
                 amount= 10
             )
         )
@@ -389,22 +389,22 @@ class Command(BaseCommand):
         add_ingredients = (
              IngredientRecipe(
                 recipe=id_recipes,
-                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                ingredient=Ingredient.objects.get(id=13),
                 amount= 10
             ),
             IngredientRecipe(
                 recipe=id_recipes,
-                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                ingredient=Ingredient.objects.get(id=12),
                 amount= 10
             ),
             IngredientRecipe(
                 recipe=id_recipes,
-                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                ingredient=Ingredient.objects.get(id=11),
                 amount= 10
             ),
             IngredientRecipe(
                 recipe=id_recipes,
-                ingredient=Ingredient.objects.get(id=randint(1, 2188)),
+                ingredient=Ingredient.objects.get(id=10),
                 amount= 10
             )
         )

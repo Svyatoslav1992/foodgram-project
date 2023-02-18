@@ -92,8 +92,6 @@ jobs:
             # echo POSTGRES_PASSWORD=postgres >> .env
             # echo DB_HOST=db >> .env
             # echo DB_PORT=5432 >> .env
-            # echo ALLOWED_HOSTS= 84.201.165.229 >> .env
-            # echo SECRET_KEY='django-insecure-@_8zpdw(j%91%u2yf076(!$i*^xei^h%%%+e2zwm8olp9fr5km' >> .env
 
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
@@ -108,10 +106,6 @@ jobs:
             sudo docker-compose exec -T web python manage.py migrate
             sudo docker-compose exec -T web python manage.py collectstatic --no-input
             sudo docker-compose exec -T web python manage.py load_data
-            # sudo docker-compose exec -T web python manage.py load_ingredients
-            # sudo docker-compose exec -T web python manage.py load_tags
-            # sudo docker-compose exec -T web python manage.py load_users
-            # sudo docker-compose exec -T web python manage.py load_recipes
 
             docker-compose ps
   send_message:
