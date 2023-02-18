@@ -89,3 +89,7 @@ docker-compose exec web python manage.py load_data
         }
 ]
 
+
+## Проект в интернете
+Проект запущен и доступен по [адресу](http://51.250.107.88//recipes)
+Админка доступна по почте\паролю: SuperAdmin@gmail.com \ SuperAdmin@gmail.com
