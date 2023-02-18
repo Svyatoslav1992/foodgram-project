@@ -83,6 +83,7 @@ jobs:
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.BACKEND }}:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.FRONTEND }}:latest
 
+
             rm .env
             touch .env
 
