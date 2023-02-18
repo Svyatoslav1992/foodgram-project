@@ -36,14 +36,14 @@ class Base64ImageField(serializers.ImageField):
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    "Сериализатор для модели Ingredient"
+    "Сериализатор для модели Ingredient только для чтения данных"
     class Meta:
         model = Ingredient
         fields = ('id', 'name', 'measurement_unit')
 
 
 class TagSerializer(serializers.ModelSerializer):
-    "Сериализатор для модели Tag"
+    "Сериализатор для модели Tag только для чтения данных"
     color = Hex2NameColor()
 
     class Meta:
@@ -69,8 +69,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
     is_favorited = serializers.SerializerMethodField(read_only=True)
     is_in_shopping_cart = serializers.SerializerMethodField(read_only=True)
     author = UsersSerializer(read_only=True)
-    ingredients = serializers.SerializerMethodField(many=True, read_only=True)
-    # ingredients = IngredientRecipeSerializer(many=True, read_only=True)
+    ingredients = IngredientRecipeSerializer(many=True, read_only=True)
     image = Base64ImageField(required=True, allow_null=True)
     tags = TagSerializer(many=True)
 
@@ -136,13 +135,15 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         )
 
     def create_ingredients(self, ingredients, recipe):
-        IngredientRecipe.objects.bulk_create([
-            IngredientRecipe(
-                recipe=recipe,
-                amount=ingredient.get('amount'),
-                ingredient_id=ingredient.get('id')
-            ) for ingredient in ingredients
-        ])
+        for ingredient in ingredients:
+            current_ingredient = get_object_or_404(
+                Ingredient, id=ingredient.get('id')
+            )
+            ing, _ = IngredientRecipe.objects.get_or_create(
+                ingredient=current_ingredient,
+                amount=ingredient['amount']
+            )
+            recipe.ingredients.add(ing)
 
     def create(self, validated_data):
         ingredients = validated_data.pop('ingredients')
@@ -204,7 +205,7 @@ class RecipeShortInfo(RecipeReadSerializer):
     """"Сериализатор рецептов  для отображения нужных полей"""
     class Meta:
         model = Recipe
-        fields = ('id', 'name', 'image', 'ingredients', 'cooking_time')
+        fields = ('id', 'name', 'image', 'cooking_time')
 
 
 class AddToSerializer(serializers.Serializer):
@@ -228,7 +229,6 @@ class AddToSerializer(serializers.Serializer):
 
 
 class FollowListSerializer(serializers.ModelSerializer):
-    """Сериализатор для списка избранного"""
     recipes = serializers.SerializerMethodField()
     recipes_count = serializers.SerializerMethodField()
     is_subscribed = serializers.SerializerMethodField()
@@ -274,7 +274,6 @@ class FollowListSerializer(serializers.ModelSerializer):
 
 
 class FollowSerializer(serializers.ModelSerializer):
-    """Сериализатор для подписки"""
     class Meta:
         model = Follow
         fields = ('author', 'user')
