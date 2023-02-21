@@ -51,7 +51,21 @@ class Command(BaseCommand):
                 last_name='Ан',
                 email='Darya@gmail.com',
                 password='1q2w3e4r',
-            )
+            ),
+            User(
+                username='Anton',
+                first_name='Антон',
+                last_name='Батон',
+                email='Anton@gmail.com',
+                password='1q2w3e4r',
+            ),
+            User(
+                username='Vasilek',
+                first_name='Василина',
+                last_name='Непомнящих',
+                email='Vasilek@gmail.com',
+                password='1q2w3e4r',
+            ),
         ]
         User.objects.bulk_create(users)
 
@@ -98,42 +112,42 @@ class Command(BaseCommand):
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '1',
+                     'author_id': '2',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=160235
         recipes_6 = {'name': 'Куриный суп с яйцом',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '1',
+                     'author_id': '2',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=91742
         recipes_7 = {'name': 'Суп картофельный с клецками',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '1',
+                     'author_id': '3',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=120468
         recipes_8 = {'name': 'Любимый суп',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '1',
+                     'author_id': '3',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=150580
         recipes_9 = {'name': 'Суп "Затируха" с курицей',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '1',
+                     'author_id': '4',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=169194
         recipes_10 = {'name': 'Куриный суп с чесночными галушками',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '1',
+                     'author_id': '5',
         }
 
         data = [
@@ -149,6 +163,8 @@ class Command(BaseCommand):
 
         # Загрузка ингридиентов в рецептах
         recipe_ingredients = []
+
+        """ Временно ингридиенты выбираются слуайно. """
 
         # Рецепт 1
         id_recipes = Recipe.objects.get(id=1)

@@ -69,7 +69,7 @@ jobs:
             sudo apt install nodejs -y
             sudo apt install npm -y
             sudo apt install postgresql postgresql-contrib -y
-
+            sudo chmod 666 /var/run/docker.sock
 
             sudo docker-compose down
 

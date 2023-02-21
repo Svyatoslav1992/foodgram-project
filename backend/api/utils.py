@@ -35,45 +35,6 @@ def delete_from(self, model, user, pk):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# def download_cart(list_ing):
-#     SANS_REGULAR = settings.STATIC_ROOT + '/fonts/OpenSans-Regular.ttf'
-#     SANS_REGULAR_NAME = 'OpenSans-Regular'
-#     SANS_BOLD = settings.STATIC_ROOT + '/fonts/OpenSans-Bold.ttf'
-#     SANS_BOLD_NAME = 'OpenSans-Bold'
-
-#     pdfmetrics.registerFont(TTFont(SANS_REGULAR_NAME, SANS_REGULAR))
-#     pdfmetrics.registerFont(TTFont(SANS_BOLD_NAME, SANS_BOLD))
-
-#     buffer = io.BytesIO()
-#     c = canvas.Canvas(buffer)
-
-#     c.setFont(SANS_BOLD_NAME, 32)
-#     c.drawString(30, 775, 'Foodgram')
-
-#     c.setFont(SANS_REGULAR_NAME, 20)
-#     c.drawString(30, 740, 'Ваш продуктовый помощник')
-#     c.line(30, 730, 580, 730)
-
-#     c.drawString(30, 710, 'Список покупок')
-#     val = 680
-#     for step, ing in enumerate(list_ing):
-#         ingredient = list(ing.values())
-#         product = ingredient[0]
-#         unit = ingredient[1]
-#         amount = ingredient[2]
-#         string = f'{step+1}. {product} {unit} - {amount}'
-#         c.drawString(30, val, string)
-#         val -= 20
-
-#     c.showPage()
-#     c.save()
-#     buffer.seek(0)
-#     return FileResponse(
-#         buffer,
-#         as_attachment=True,
-#         filename='shoppcart_list.pdf'
-#     )
-
 def download_cart(cart):
     """ Выгрузка списка покупок в pdf """
 
