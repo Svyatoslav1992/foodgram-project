@@ -131,7 +131,7 @@ def shopping_cart(self, request, pk=None):
 
 @action(detail=False, methods=['get'],
         permission_classes=[permissions.IsAuthenticated])
-def download_shopping_cart(self, request):
+def download_cart(self, request):
     final_list = {}
     ingredients = IngredientRecipe.objects.filter(
         recipe__cart__user=request.user).values_list(
