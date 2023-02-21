@@ -11,7 +11,8 @@ from api.filters import IngredientFilter, RecipeFilter
 from api.pagination import CustomPagination
 from api.serializers import (IngredientSerializer, RecipeReadSerializer,
                              RecipeWriteSerializer, TagSerializer, RecipeShortInfo)
-from api.utils import add_to, delete_from, download_cart
+# from api.utils import add_to, delete_from, download_cart
+from api.utils import add_to, delete_from
 
 
 
@@ -108,26 +109,26 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return delete_from(self, Favourite, request.user, pk)
 
 
-# class DownloadCart(APIView):
-#     """Вью для скачивания списка покупок."""
+class DownloadCart(APIView):
+    """Вью для скачивания списка покупок."""
 
-#     def get(self, request):
-#         # list_ing = request.user.recipe_shopping_cart.values(
-#         list_ing = request.user.user_shopping_cart.values(
-#             'recipe__ingredients__ingredient__name',
-#             'recipe__ingredients__ingredient__measurement_unit'
-#         ).order_by('recipe__ingredients__ingredient__name').annotate(
-#             summ_amount=Sum('recipe__ingredients__amount'))
-#         return download_cart(list_ing)
+    def get(self, request):
+        # list_ing = request.user.recipe_shopping_cart.values(
+        list_ing = request.user.user_shopping_cart.values(
+            'recipe__ingredients__ingredient__name',
+            'recipe__ingredients__ingredient__measurement_unit'
+        ).order_by('recipe__ingredients__ingredient__name').annotate(
+            summ_amount=Sum('recipe__ingredients__amount'))
+        return download_cart(list_ing)
 
-@action(detail=True, methods=['get', 'delete'],
-            permission_classes=[permissions.IsAuthenticated])
-def shopping_cart(self, request, pk=None):
-    if request.method == 'GET':
-        return self.add_obj(ShoppingCart, request.user, pk)
-    elif request.method == 'DELETE':
-        return self.delete_obj(ShoppingCart, request.user, pk)
-    return None
+# @action(detail=True, methods=['get', 'delete'],
+#             permission_classes=[permissions.IsAuthenticated])
+# def shopping_cart(self, request, pk=None):
+#     if request.method == 'GET':
+#         return self.add_obj(ShoppingCart, request.user, pk)
+#     elif request.method == 'DELETE':
+#         return self.delete_obj(ShoppingCart, request.user, pk)
+#     return None
 
 @action(detail=False, methods=['get'],
         permission_classes=[permissions.IsAuthenticated])
