@@ -66,6 +66,20 @@ class Command(BaseCommand):
                 email='Vasilek@gmail.com',
                 password='1q2w3e4r',
             ),
+            User(
+                username='Petr',
+                first_name='Пётр',
+                last_name='Белый',
+                email='Petr@gmail.com',
+                password='1q2w3e4r',
+            ),
+            User(
+                username='Valga',
+                first_name='Валя',
+                last_name='Хабда',
+                email='Valga@gmail.com',
+                password='1q2w3e4r',
+            ),
         ]
         User.objects.bulk_create(users)
 
@@ -119,35 +133,35 @@ class Command(BaseCommand):
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '2',
+                     'author_id': '3',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=91742
         recipes_7 = {'name': 'Суп картофельный с клецками',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '3',
+                     'author_id': '4',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=120468
         recipes_8 = {'name': 'Любимый суп',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '3',
+                     'author_id': '5',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=150580
         recipes_9 = {'name': 'Суп "Затируха" с курицей',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '4',
+                     'author_id': '6',
         }
         # https://www.russianfood.com/recipes/recipe.php?rid=169194
         recipes_10 = {'name': 'Куриный суп с чесночными галушками',
                      'text': 'Тот самый суп',
                      'image': '',
                      'cooking_time': '7',
-                     'author_id': '5',
+                     'author_id': '7',
         }
 
         data = [
