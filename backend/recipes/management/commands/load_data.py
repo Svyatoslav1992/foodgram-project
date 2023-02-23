@@ -5,9 +5,8 @@ from random import randint
 from django.core.management import BaseCommand, CommandError
 
 from recipes.models import Ingredient, Recipe, Tag, IngredientRecipe
-from django.core.files.uploadedfile import SimpleUploadedFile
 from users.models import User
-from django.core.files.uploadedfile import SimpleUploadedFile
+# from django.core.files.uploadedfile import SimpleUploadedFile
 
 class Command(BaseCommand):
     """Загружает тестовые данные."""
