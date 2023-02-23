@@ -13,6 +13,27 @@ from api.serializers import AddToSerializer
 from foodgram import settings
 from recipes.models import Recipe
 
+import io
+
+from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
+from django.db.models.aggregates import Count, Sum
+from django.db.models.expressions import Exists, OuterRef, Value
+from django.http import FileResponse
+from django.shortcuts import get_object_or_404
+from djoser.views import UserViewSet
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+from rest_framework import generics, status, viewsets
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.decorators import action, api_view
+from rest_framework import permissions, viewsets
+
+User = get_user_model()
+FILENAME = 'shoppingcart.pdf'
+
 
 def add_to(self, model, user, pk):
     """Метод для добавления"""
@@ -35,99 +56,86 @@ def delete_from(self, model, user, pk):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# def download_cart(cart):
-#     """ Выгрузка списка покупок в pdf """
-
-#     buffer = BytesIO()
-#     can = canvas.Canvas(buffer)
-
+# def download_cart(list_ing):
 #     SANS_REGULAR = settings.STATIC_ROOT + '/fonts/OpenSans-Regular.ttf'
 #     SANS_REGULAR_NAME = 'OpenSans-Regular'
 #     SANS_BOLD = settings.STATIC_ROOT + '/fonts/OpenSans-Bold.ttf'
 #     SANS_BOLD_NAME = 'OpenSans-Bold'
 
-#     FILE_NAME = 'shopping_list.pdf'
-
 #     pdfmetrics.registerFont(TTFont(SANS_REGULAR_NAME, SANS_REGULAR))
 #     pdfmetrics.registerFont(TTFont(SANS_BOLD_NAME, SANS_BOLD))
-#     can.setTitle('Список покупок')
 
-#     can.setFont(SANS_BOLD_NAME, 32)
-#     can.drawString(100, 750, 'foodgram')
-#     can.setFont(SANS_REGULAR_NAME, 13)
-#     can.drawString(100, 725, 'Ваш продуктовый помощник')
-#     can.line(100, 715, 500, 715)
-#     can.setFont(SANS_BOLD_NAME, 13)
-#     can.drawString(393, 700, 'cписок покупок')
-#     can.setFont(SANS_REGULAR_NAME, 10)
+#     buffer = io.BytesIO()
+#     c = canvas.Canvas(buffer)
 
-#     padding_top = 680
-#     page_number = 1
-#     steps = len(cart)
-#     last_step = steps - 1
-#     for step, ingredient in enumerate(cart):
-#         ingredient = list(ingredient.values())
-#         if step == last_step and steps >= 3:
-#             x = padding_top - 20
-#             can.line(100, x, 500, x)
-#             can.setFont(SANS_BOLD_NAME, 13)
-#             can.drawString(362, x - 15, 'приятного аппетита')
-#             can.setFont(SANS_REGULAR_NAME, 10)
-#         if padding_top <= 80:
-#             can.showPage()
-#             can.line(100, 770, 500, 770)
-#             can.setFont(SANS_BOLD_NAME, 13)
-#             can.drawString(393, 755, 'cписок покупок')
-#             can.setFont(SANS_REGULAR_NAME, 10)
-#             page_number += 1
-#             padding_top = 735
-#             can.drawString(100, 780, f'стр. {page_number}')
+#     c.setFont(SANS_BOLD_NAME, 32)
+#     c.drawString(30, 775, 'Foodgram')
+
+#     c.setFont(SANS_REGULAR_NAME, 20)
+#     c.drawString(30, 740, 'Ваш продуктовый помошник')
+#     c.line(30, 730, 580, 730)
+
+#     c.drawString(30, 710, 'Список покупок')
+#     val = 680
+#     for step, ing in enumerate(list_ing):
+#         ingredient = list(ing.values())
 #         product = ingredient[0]
 #         unit = ingredient[1]
-#         total = ingredient[2]
-#         string = f'{step+1}. {product[0:48]} ({unit[0:10]}) — {total}'
-#         can.drawString(100, padding_top, string)
-#         padding_top -= 19
+#         amount = ingredient[2]
+#         string = f'{step+1}. {product} {unit} - {amount}'
+#         c.drawString(30, val, string)
+#         val -= 20
 
-#     can.save()
+#     c.showPage()
+#     c.save()
 #     buffer.seek(0)
-#     return FileResponse(buffer, as_attachment=True, filename=FILE_NAME)
+#     return FileResponse(
+#         buffer,
+#         as_attachment=True,
+#         filename='shoppcart_list.pdf'
+#     )
 
-def download_cart(list_ing):
-    SANS_REGULAR = settings.STATIC_ROOT + '/fonts/OpenSans-Regular.ttf'
-    SANS_REGULAR_NAME = 'OpenSans-Regular'
-    SANS_BOLD = settings.STATIC_ROOT + '/fonts/OpenSans-Bold.ttf'
-    SANS_BOLD_NAME = 'OpenSans-Bold'
 
-    pdfmetrics.registerFont(TTFont(SANS_REGULAR_NAME, SANS_REGULAR))
-    pdfmetrics.registerFont(TTFont(SANS_BOLD_NAME, SANS_BOLD))
+@action(
+        detail=False,
+        methods=['get'],
+        permission_classes=(permissions.IsAuthenticated,))
+def download_shopping_cart(self, request):
+    """Качаем список с ингредиентами."""
 
     buffer = io.BytesIO()
-    c = canvas.Canvas(buffer)
-
-    c.setFont(SANS_BOLD_NAME, 32)
-    c.drawString(30, 775, 'Foodgram')
-
-    c.setFont(SANS_REGULAR_NAME, 20)
-    c.drawString(30, 740, 'Ваш продуктовый помошник')
-    c.line(30, 730, 580, 730)
-
-    c.drawString(30, 710, 'Список покупок')
-    val = 680
-    for step, ing in enumerate(list_ing):
-        ingredient = list(ing.values())
-        product = ingredient[0]
-        unit = ingredient[1]
-        amount = ingredient[2]
-        string = f'{step+1}. {product} {unit} - {amount}'
-        c.drawString(30, val, string)
-        val -= 20
-
-    c.showPage()
-    c.save()
+    page = canvas.Canvas(buffer)
+    pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
+    x_position, y_position = 50, 800
+    shopping_cart = (
+        request.user.shopping_cart.recipe.
+        values(
+            'ingredients__name',
+            'ingredients__measurement_unit'
+        ).annotate(amount=Sum('recipe__amount')).order_by())
+    page.setFont('Vera', 14)
+    if shopping_cart:
+        indent = 20
+        page.drawString(x_position, y_position, 'Cписок покупок:')
+        for index, recipe in enumerate(shopping_cart, start=1):
+            page.drawString(
+                x_position, y_position - indent,
+                f'{index}. {recipe["ingredients__name"]} - '
+                f'{recipe["amount"]} '
+                f'{recipe["ingredients__measurement_unit"]}.')
+            y_position -= 15
+            if y_position <= 50:
+                page.showPage()
+                y_position = 800
+        page.save()
+        buffer.seek(0)
+        return FileResponse(
+            buffer, as_attachment=True, filename=FILENAME)
+    page.setFont('Vera', 24)
+    page.drawString(
+        x_position,
+        y_position,
+        'Cписок покупок пуст!')
+    page.save()
     buffer.seek(0)
-    return FileResponse(
-        buffer,
-        as_attachment=True,
-        filename='shoppcart_list.pdf'
-    )
+    return FileResponse(buffer, as_attachment=True, filename=FILENAME)

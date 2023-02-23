@@ -92,13 +92,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return delete_from(self, Favourite, request.user, pk)
 
 
-class DownloadCart(APIView):
-    """Вью для скачивания списка покупок."""
-    permission_classes = [permissions.IsAuthenticated]
-    def get(self, request):
-        list_ing = request.user.user_shopping_cart.values(
-            'recipe__ingredients__ingredient__name',
-            'recipe__ingredients__ingredient__measurement_unit'
-        ).order_by('recipe__ingredients__ingredient__name').annotate(
-            summ_amount=Sum('recipe__ingredients__amount'))
-        return download_cart(list_ing)
+# class DownloadCart(APIView):
+#     """Вью для скачивания списка покупок."""
+#     permission_classes = [permissions.IsAuthenticated]
+#     def get(self, request):
+#         list_ing = request.user.user_shopping_cart.values(
+#             'recipe__ingredients__ingredient__name',
+#             'recipe__ingredients__ingredient__measurement_unit').order_by(
+#             'recipe__ingredients__ingredient__name').annotate(
+#             total=Sum('recipe__ingredients__amount'))
+#         return download_cart(list_ing)
