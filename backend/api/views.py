@@ -11,7 +11,8 @@ from api.filters import IngredientFilter, RecipeFilter
 from api.pagination import CustomPagination
 from api.serializers import (IngredientSerializer, RecipeReadSerializer,
                              RecipeWriteSerializer, TagSerializer, RecipeShortInfo)
-from api.utils import add_to, delete_from, download_cart
+# from api.utils import add_to, delete_from, download_cart
+from api.utils import add_to, delete_from
 
 User = get_user_model()
 
