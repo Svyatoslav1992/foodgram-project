@@ -108,7 +108,7 @@ def download_shopping_cart(self, request):
     pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
     x_position, y_position = 50, 800
     shopping_cart = (
-        request.user.shopping_cart.recipe.
+        request.user.user_shopping_cart.recipe.
         values(
             'ingredients__name',
             'ingredients__measurement_unit'
